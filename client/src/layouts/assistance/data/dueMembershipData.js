@@ -21,7 +21,7 @@ export default function usersTableData() {
   //Fetch request for the users
   useEffect(() => {
     const fetchUsers = async () => {
-      const fetchedUsers = await userServices.fetchActiveUsers();
+      const fetchedUsers = await userServices.fetchInactiveUsers();
       if (fetchedUsers) {
         setUsers(fetchedUsers);
       }

@@ -13,6 +13,20 @@ export const userServices = {
       alert(`Failed to fetch users: ${error.message}`);
     }
   },
+  //fetch all inactive members (users)
+  fetchInactiveUsers: async () => {
+    try {
+      const response = await fetch("http://localhost:3333/inactive");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const users = await response.json();
+      return users;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch users: ${error.message}`);
+    }
+  },
   //fetch all members (users)
   fetchUsers: async () => {
     try {

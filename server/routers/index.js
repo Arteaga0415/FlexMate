@@ -3,6 +3,7 @@ const controllers = require('../controllers');
 
 //get All active memebers 
 router.get('/active', controllers.getActive);
+router.get('/inactive', controllers.getInactive);
 //Weekly routers
 router.get('/weekly', controllers.getWeekly);
 router.post('/weekly', controllers.postOneWeekly);

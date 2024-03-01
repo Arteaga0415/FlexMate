@@ -1,13 +1,6 @@
 const { User, AssistanceHistory, AssistanceWeekly } = require('../models'); // Adjust the path as per your project structure
 const mongoose = require('mongoose');
 
-//Helper functions 
-function getWeekStartDate(date) {
-  const day = date.getDay(); // Get current day number, starting with 0 for Sunday
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
-  return new Date(date.setDate(diff));
-}
-
 const controllers = {
   // Function to get all historical
   getAll: async (req, res) => {
@@ -52,6 +45,18 @@ const controllers = {
   getActive: async (req, res) => {
     try {
       const active = await User.find({ status: true });
+      if (!active) {
+        return res.status(400).send('Bad request')
+      }
+      //console.log('Active: ', active);
+      res.status(200).json(active);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+  getInactive: async (req, res) => {
+    try {
+      const active = await User.find({ status: false });
       if (!active) {
         return res.status(400).send('Bad request')
       }
