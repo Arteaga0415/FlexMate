@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
-import userServices from "../../../appServices";
+import { userServices } from "../../../appServices";
 
 export default function usersTableData() {
   const [users, setUsers] = useState([]);
@@ -51,7 +51,7 @@ export default function usersTableData() {
 
   const rows = users.map((user) => ({
     name: <UserComponent name={user.name} email={user.email} />,
-    email: user.email, // You might not need this if email is already displayed with the name
+    email: user.email, 
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
     status: (
       <MDBox ml={-1}>
