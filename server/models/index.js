@@ -18,20 +18,37 @@ const userSchema = new Schema({
   classesInBelt: { type: Number, required: false }
 });
 
+
 const assistanceWeeklySchema = new Schema({
-  userId: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'User',
-    required: true
-  },
-  weekStartDate: { 
-    type: Date, 
-    required: true 
-  },
-  attendedSessions: [{
-    date: Date,
-    sessionType: String
-  }]
+  weekStartDate: { type: Date, required: true },
+  monday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  tuesday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  wednesday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  thursday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  friday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  saturday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
+  sunday: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    sessions: [{ sessionType: String }]
+  }],
 });
 
 const assistanceHistorySchema = new Schema({
@@ -55,3 +72,20 @@ const AssistanceWeekly = mongoose.model('AssistanceWeekly', assistanceWeeklySche
 const AssistanceHistory = mongoose.model('AssistanceHistory', assistanceHistorySchema);
 
 module.exports = { User, AssistanceWeekly, AssistanceHistory };
+// const sessionSchema = new Schema({ sessionType: String }, { _id: false }); 
+
+// const dailyAttendanceSchema = new Schema({
+//   userId: { type: Schema.Types.ObjectId, ref: 'User' },
+//   sessions: [sessionSchema]
+// }, { _id: false }); 
+
+// const assistanceWeeklySchema = new Schema({
+//   weekStartDate: { type: Date, required: true },
+//   monday: [dailyAttendanceSchema],
+//   tuesday: [dailyAttendanceSchema],
+//   wednesday: [dailyAttendanceSchema],
+//   thursday: [dailyAttendanceSchema],
+//   friday: [dailyAttendanceSchema],
+//   saturday: [dailyAttendanceSchema],
+//   sunday: [dailyAttendanceSchema],
+// }, { timestamps: true }); 

@@ -27,7 +27,8 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
-import Sidenav from "examples/Sidenav";
+import Sidenav from "./layouts/Sidenav";
+// import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
@@ -150,7 +151,7 @@ export default function App() {
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
         <CssBaseline />
-        {layout === "dashboard" && (
+        {layout === "menu" && (
           <>
             <Sidenav
               color={sidenavColor}
@@ -167,14 +168,14 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/menu" />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>
   ) : (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" && (
+      {layout === "menu" && (
         <>
           <Sidenav
             color={sidenavColor}
@@ -191,7 +192,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/menu" />} />
       </Routes>
     </ThemeProvider>
   );

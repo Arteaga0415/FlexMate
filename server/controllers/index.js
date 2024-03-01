@@ -1,6 +1,13 @@
 const { User, AssistanceHistory, AssistanceWeekly } = require('../models'); // Adjust the path as per your project structure
 const mongoose = require('mongoose');
 
+//Helper functions 
+function getWeekStartDate(date) {
+  const day = date.getDay(); // Get current day number, starting with 0 for Sunday
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+  return new Date(date.setDate(diff));
+}
+
 const controllers = {
   // Function to get all historical
   getAll: async (req, res) => {
@@ -45,7 +52,10 @@ const controllers = {
   getActive: async (req, res) => {
     try {
       const active = await User.find({ status: true });
-      console.log('Active: ', active);
+      if (!active) {
+        return res.status(400).send('Bad request')
+      }
+      //console.log('Active: ', active);
       res.status(200).json(active);
     } catch (error) {
       res.status(500).send(error.message);
@@ -56,6 +66,9 @@ const controllers = {
   getWeekly: async (req, res) => {
     try {
       const weekly = await AssistanceWeekly.find({});
+      if (!weekly) {
+        return res.status(400).send('Bad request')
+      }
       res.status(200).json(weekly);
     } catch (error) {
       res.status(500).send(error.message);
@@ -64,10 +77,38 @@ const controllers = {
   postOneWeekly: async (req, res) => {
     try {
       const newWeekly = new AssistanceWeekly(req.body);
+      if (!newWeekly) {
+        return res.status(400).send('Bad request, no body')
+      }
       await newWeekly.save();
       res.status(201).json(newWeekly);
     } catch (error) {
       res.status(400).send(error.message);
+    }
+  },
+  updateWeeklyAssistance: async (req, res) => {
+    const { weekStartDate, day, userId, sessions } = req.body; 
+    //console.log('Here day: ', day);
+    // Push the clases to the correct day on the schema 
+    const update = {
+      $push: {
+        [day]: {
+          userId,
+          sessions
+        }
+      }
+    };
+    try {
+      const options = { new: true, upsert: true }; 
+      const filter = { weekStartDate: new Date(weekStartDate) };
+      //the weekStartdate is used to find the schema to update and options will create a new schema if none exist.
+      const updatedDocument = await AssistanceWeekly.findOneAndUpdate(filter, update, options);
+      if (!updatedDocument) {
+        return res.status(404).send('Data formated incorrectly');
+      }
+      res.status(200).json(updatedDocument);
+    } catch (error) {
+      res.status(500).send(error.message);
     }
   },
   deleteAllWeekly: async (req, res) => {
@@ -79,7 +120,6 @@ const controllers = {
       res.status(500).send('Error deleting weekly records: ', error.message);
     }
   },
-  
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
   //Function to get all users 
   getAllUsers: async (req, res) => {
@@ -93,6 +133,9 @@ const controllers = {
   postUser: async (req, res) => {
     try {
       const newUser = new User(req.body);
+      if (!newUser) {
+        return res.status(404).send('No data on the request');
+      }
       await newUser.save();
       res.status(201).json(newUser);
     } catch (error) {
@@ -105,7 +148,7 @@ const controllers = {
     try {
       const deleteduser= await User.findOneAndDelete({ _id: id });
       if (!deleteduser) {
-          return res.status(404).send('No User found with that ID');
+        return res.status(404).send('No User found with that ID');
       }
       res.status(200).send('User deleted successfully');
     } catch (error) {

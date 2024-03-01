@@ -1,11 +1,14 @@
 const router = require('express').Router();
 const controllers = require('../controllers');
 
+//get All active memebers 
 router.get('/active', controllers.getActive);
 //Weekly routers
 router.get('/weekly', controllers.getWeekly);
 router.post('/weekly', controllers.postOneWeekly);
-router.post('/resetWeekly', controllers.deleteAllWeekly);
+router.post('/updateWeekly', controllers.updateWeeklyAssistance);
+router.delete('/resetWeekly', controllers.deleteAllWeekly);
+// router.delete('/weekly/:id', controllers.deleteOneWeekly);
 //User routers 
 router.get('/user', controllers.getAllUsers);
 router.post('/user', controllers.postUser);

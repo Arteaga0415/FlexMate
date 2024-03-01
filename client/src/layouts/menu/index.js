@@ -1,59 +1,37 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useEffect } from "react";
-
-// @mui material components
 import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+/**
+ Vic - here 
+ Sebastian Arteaga
+ I grabed modified/created the two imported layouts below
+ */
+import MenuLayout from "./layout";
+import MenuNavbar from "../navbars/default.js";
+
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
-import reportsBarChartData from "layouts/rtl/data/reportsBarChartData";
-import reportsLineChartData from "layouts/rtl/data/reportsLineChartData";
+import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
-// RTL components
-import Projects from "layouts/rtl/components/Projects";
-import OrdersOverview from "layouts/rtl/components/OrdersOverview";
+// Dashboard components
+import Projects from "layouts/dashboard/components/Projects";
+import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
-// Material Dashboard 2 React contexts
-import { useMaterialUIController, setDirection } from "context";
+import DataTable from "examples/Tables/DataTable";
 
-function RTL() {
-  const [, dispatch] = useMaterialUIController();
+function Menu() {
   const { sales, tasks } = reportsLineChartData;
-
-  // Changing the direction to rtl
-  useEffect(() => {
-    setDirection(dispatch, "rtl");
-
-    return () => setDirection(dispatch, "ltr");
-  }, []);
-
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
+    <MenuLayout>
+      <MenuNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
@@ -61,12 +39,12 @@ function RTL() {
               <ComplexStatisticsCard
                 color="dark"
                 icon="weekend"
-                title="أموال اليوم"
+                title="Bookings"
                 count={281}
                 percentage={{
                   color: "success",
                   amount: "+55%",
-                  label: "من الأسبوع الماضي",
+                  label: "than lask week",
                 }}
               />
             </MDBox>
@@ -75,12 +53,12 @@ function RTL() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
-                title="مستخدمو اليوم"
+                title="Today's Users"
                 count="2,300"
                 percentage={{
                   color: "success",
                   amount: "+3%",
-                  label: "من الأسبوع الماضي",
+                  label: "than last month",
                 }}
               />
             </MDBox>
@@ -90,12 +68,12 @@ function RTL() {
               <ComplexStatisticsCard
                 color="success"
                 icon="store"
-                title="عملاء جدد"
+                title="Revenue"
                 count="34k"
                 percentage={{
                   color: "success",
                   amount: "+1%",
-                  label: "من الشهر الماضي",
+                  label: "than yesterday",
                 }}
               />
             </MDBox>
@@ -105,12 +83,12 @@ function RTL() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="person_add"
-                title="مبيعات"
+                title="Followers"
                 count="+91"
                 percentage={{
                   color: "success",
-                  amount: "",
-                  label: "مقارنة بيوم أمس",
+                  amount: "+4%",
+                  label: "Just updated",
                 }}
               />
             </MDBox>
@@ -122,9 +100,9 @@ function RTL() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="مشاهدات الموقع"
-                  description="آخر أداء للحملة"
-                  date="الحملة أرسلت قبل يومين"
+                  title="website views"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
                 />
               </MDBox>
@@ -133,13 +111,13 @@ function RTL() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="success"
-                  title="المبيعات اليومية"
+                  title="daily sales"
                   description={
                     <>
-                      (<strong>+15%</strong>) زيادة في مبيعات اليوم..
+                      (<strong>+15%</strong>) increase in today sales.
                     </>
                   }
-                  date="تم التحديث منذ 4 دقائق"
+                  date="updated 4 min ago"
                   chart={sales}
                 />
               </MDBox>
@@ -148,9 +126,9 @@ function RTL() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="dark"
-                  title="المهام المكتملة"
-                  description="آخر أداء للحملة"
-                  date="تم تحديثه للتو"
+                  title="completed tasks"
+                  description="Last Campaign Performance"
+                  date="just updated"
                   chart={tasks}
                 />
               </MDBox>
@@ -169,8 +147,7 @@ function RTL() {
         </MDBox>
       </MDBox>
       <Footer />
-    </DashboardLayout>
+    </MenuLayout>
   );
 }
-
-export default RTL;
+export default Menu;

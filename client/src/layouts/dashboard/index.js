@@ -96,7 +96,7 @@ function Dashboard() {
                 count="+91"
                 percentage={{
                   color: "success",
-                  amount: "",
+                  amount: "+4%",
                   label: "Just updated",
                 }}
               />

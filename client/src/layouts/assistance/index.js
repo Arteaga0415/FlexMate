@@ -32,9 +32,11 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
+import usersTableData from "./data/usersTableData";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
+  // const { columns, rows } = authorsTableData();
+  const { columns, rows } = usersTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
@@ -55,7 +57,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Authors Table
+                  Assistance
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -82,7 +84,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Projects Table
+                  Due Membership
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
