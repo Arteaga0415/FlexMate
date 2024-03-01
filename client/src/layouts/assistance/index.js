@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -30,18 +33,57 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
+// import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import usersTableData from "./data/usersTableData";
+import dueMembershipData from "./data/dueMembershipData";
+
+import MDButton from "components/MDButton";
+import { useState } from "react"; 
+import {  Menu, MenuItem } from '@mui/material';
 
 function Tables() {
+  //Kids class etc. 
+  const [classType, setClassType] = useState(null); // For the anchor element
+  const [selectedClass, setSelectedClass] = useState('Advanced'); // Default value
+  const [open, setOpen] = useState(false);
+
+  const handleClickClass = (event) => {
+    setOpen(true);
+    setClassType(event.currentTarget);
+  };
+
+  const handleCloseClass = (type) => () => {
+    if (type) {
+      setSelectedClass(type);
+    }
+    setOpen(false);
+    setClassType(null);
+  };
+
   // const { columns, rows } = authorsTableData();
   const { columns, rows } = usersTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const { columns: pColumns, rows: pRows } = dueMembershipData();
+  // const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
     <MenuLayout>
       <MenuNavbar />
+      <MDBox sx={{ padding: 1 }}>
+        <MDButton onClick={handleClickClass} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
+          {selectedClass}
+        </MDButton>
+        <Menu
+          id='resources-menu'
+          anchorEl={classType}
+          open={open}
+          onClose={handleCloseClass('')}
+        >
+        <MenuItem onClick={handleCloseClass('Advanced')}>Advanced</MenuItem>
+        <MenuItem onClick={handleCloseClass('Kids')}>Kids</MenuItem>
+        <MenuItem onClick={handleCloseClass('Beginners')}>Beginners</MenuItem>
+      </Menu>
+    </MDBox>
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>

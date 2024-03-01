@@ -6,9 +6,9 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 React example components
 /**
  Vic - here 
- Sebastian Arteaga
- I grabed modified/created the two imported layouts below
- */
+Sebastian Arteaga
+I grabed created the two imported layouts below
+*/
 import MenuLayout from "./layout";
 import MenuNavbar from "../navbars/default.js";
 
@@ -26,6 +26,7 @@ import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 import DataTable from "examples/Tables/DataTable";
+import { userServices } from "appServices";
 
 function Menu() {
   const { sales, tasks } = reportsLineChartData;

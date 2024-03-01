@@ -1,4 +1,18 @@
 export const userServices = {
+  //fetch all Active members (users)
+  fetchActiveUsers: async () => {
+    try {
+      const response = await fetch("http://localhost:3333/active");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const users = await response.json();
+      return users;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch users: ${error.message}`);
+    }
+  },
   //fetch all members (users)
   fetchUsers: async () => {
     try {
@@ -10,10 +24,28 @@ export const userServices = {
       return users;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch users: ${error.message}`);
     }
   },
   //post a new member
   //delete a member
-  fetchWeekly: async () => {},
+  postWeeklyAssistance: async (data) => {
+    try {
+      const response = await fetch("http://localhost:3333/updateweekly", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post weekly assistance");
+      }
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("There was a problem with the post operation:", error);
+    }
+  },
   fetchHistorical: async () => {},
 };
