@@ -51,7 +51,7 @@ export default function usersTableData() {
 
   const rows = users.map((user) => ({
     name: <UserComponent name={user.name} email={user.email} />,
-    email: user.email, 
+    email: user.email,
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
     status: (
       <MDBox ml={-1}>
