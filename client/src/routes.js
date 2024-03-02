@@ -71,13 +71,15 @@ const routes = [
     route: "/assistance",
     component: <Assistance />,
   },
-  // {
-  //   type: "title",
-  //   title: "Experimental",
-  // },
-  // {
-  //   type: "divider",
-  // },
+  {
+    type: "title",
+    title: "Experimental",
+    key: "title",
+  },
+  {
+    type: "divider",
+    key: "divider",
+  },
   // {
   //   type: "collapse",
   //   name: "Dashboard",

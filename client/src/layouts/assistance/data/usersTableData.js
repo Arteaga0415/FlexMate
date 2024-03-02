@@ -38,8 +38,10 @@ export default function usersTableData() {
     //get the day of the week
     const day = date.getDay();
     //get the diference to determine the monday with of the month :date.getDate()
-    const diff = date.getDate() - day + (day === 0 ? -6 : 1); // since .getDay() returns 0 for sunday we have to do this
-    return new Date(date.setDate(diff)).toISOString().split('T')[0]; // Extract the YYYY-MM-DD
+    // since .getDay() returns 0 for sunday we have to do this
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    // Extract the YYYY-MM-DD
+    return new Date(date.setDate(diff)).toISOString().split('T')[0];
   };  
   const handleAddWeekly = (weekStartDate, userId, day, sessions) => {
     const postData = {
@@ -97,18 +99,35 @@ export default function usersTableData() {
   );
 
   const columns = [
-    { Header: "Name", accessor: "name", align: "left", width: "35%" },
+    { Header: "Name", accessor: "name", align: "left", width: "30%" },
+    { Header: "Add", accessor: "add", align: "center", width: "5%" },
     { Header: "Email", accessor: "email", align: "left" },
     { Header: "Membership", accessor: "membership", align: "left", width: "10%" },
     { Header: "Type", accessor: "type", align: "center", width: "5%" },
     { Header: "Status", accessor: "status", align: "center", width: "5%" },
     { Header: "Action", accessor: "action", align: "center", width: "5%" },
-    { Header: "Add", accessor: "add", align: "center", width: "5%" },
   ];
 
   const rows = users.map((user) => ({
     name: <UserComponent name={user.name} belt={user.belt} />,
     email: <EmailComponent email={user.email} />,
+    add: (
+      <IconButton
+        onClick={() =>
+          handleAddWeekly(
+            getMondayOfCurrentWeek(),
+            user._id,
+            getCurrentDay(),
+            [
+              { sessionType: "advanced Class" },
+              { sessionType: "Sparring Session" },
+            ]
+          )
+        }
+      >
+      <AddCircleOutlineIcon />
+      </IconButton>
+      ),
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
     type: <TypeComponent type={user.type} />,
     status: (
@@ -127,23 +146,6 @@ export default function usersTableData() {
         Edit
       </MDTypography>
     ),
-    add: (
-      <IconButton
-        onClick={() =>
-          handleAddWeekly(
-            getMondayOfCurrentWeek(),
-            user._id,
-            getCurrentDay(),
-            [
-              { sessionType: "advanced Class" },
-              { sessionType: "Sparring Session" },
-            ]
-          )
-        }
-      >
-      <AddCircleOutlineIcon />
-      </IconButton>
-      ),
   }));
 
   return { columns, rows };

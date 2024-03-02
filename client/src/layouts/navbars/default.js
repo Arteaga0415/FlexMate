@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
  Vic - here 
  Sebastian Arteaga
  I grabed the dashboard navbar and deleted the upgrade to pro, deleted functionality for notifications
+ Added functionality to the search bar 
  */
 
 import { useState, useEffect } from "react";
@@ -60,6 +61,7 @@ import {
   setTransparentNavbar,
   setMiniSidenav,
   setOpenConfigurator,
+  setSearchTerm,
 } from "context";
 
 function MenuNavbar({ absolute, light, isMini }) {
@@ -68,6 +70,13 @@ function MenuNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  /**
+   Vic - here 
+  My additons
+  */
+  const handleSearchChange = (event) => {
+    setSearchTerm(dispatch, event.target.value);
+  };
 
   useEffect(() => {
     // Setting the navbar type
@@ -99,25 +108,26 @@ function MenuNavbar({ absolute, light, isMini }) {
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+  const [inputValue, setInputValue] = useState("");
 
   // Render the notifications menu
-  const renderMenu = () => (
-    <Menu
-      anchorEl={openMenu}
-      anchorReference={null}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={Boolean(openMenu)}
-      onClose={handleCloseMenu}
-      sx={{ mt: 2 }}
-    >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-      <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
-    </Menu>
-  );
+  // const renderMenu = () => (
+  //   <Menu
+  //     anchorEl={openMenu}
+  //     anchorReference={null}
+  //     anchorOrigin={{
+  //       vertical: "bottom",
+  //       horizontal: "left",
+  //     }}
+  //     open={Boolean(openMenu)}
+  //     onClose={handleCloseMenu}
+  //     sx={{ mt: 2 }}
+  //   >
+  //     <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
+  //     <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
+  //     <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
+  //   </Menu>
+  // );
 
   // Styles for the navbar icons
   const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
@@ -132,6 +142,14 @@ function MenuNavbar({ absolute, light, isMini }) {
     },
   });
 
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearchTerm(dispatch, inputValue);
+  };
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -144,9 +162,11 @@ function MenuNavbar({ absolute, light, isMini }) {
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <MDBox pr={1}>
-              <MDInput label="Search here" />
-            </MDBox>
+            <form onSubmit={handleSubmit}>
+              <MDBox pr={1}>
+                <MDInput label="Search here" value={inputValue} onChange={handleInputChange} />
+              </MDBox>
+            </form>
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>

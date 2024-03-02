@@ -48,48 +48,81 @@ import dueMembershipData from "./data/dueMembershipData";
 import MDButton from "components/MDButton";
 import { useState } from "react"; 
 import {  Menu, MenuItem } from '@mui/material';
+import { useMaterialUIController } from "context";
 
 function Tables() {
   //Kids class etc. 
-  const [classType, setClassType] = useState(null); // For the anchor element
-  const [selectedClass, setSelectedClass] = useState('Advanced'); // Default value
-  const [open, setOpen] = useState(false);
+  const [classType, setClassType] = useState(null);
+  const [selectedClass, setSelectedClass] = useState('Advanced');
+  const [openClass, setOpenClass] = useState(false);
+  const [selectedTime, setSelectedTime] = useState('6am');
+  const [time, setTime] = useState('Time');
+  const [openTime, setOpenTime] = useState(false);
+  const { columns, rows } = usersTableData();
+  const { columns: pColumns, rows: pRows } = dueMembershipData();
+  const [{ searchTerm }] = useMaterialUIController();
 
+  let filteredRows;
+  if (searchTerm.length > 0) {
+    filteredRows = rows.filter(row => {
+      // return console.log(row.name.props.name);
+      return row.name.props.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    // console.log('Filtered Rows: ', filteredRows);
+  }
+
+  //For class type 
   const handleClickClass = (event) => {
-    setOpen(true);
+    setOpenClass(true);
     setClassType(event.currentTarget);
   };
-
   const handleCloseClass = (type) => () => {
     if (type) {
       setSelectedClass(type);
     }
-    setOpen(false);
+    setOpenClass(false);
     setClassType(null);
   };
-
-  const { columns, rows } = usersTableData();
-  const { columns: pColumns, rows: pRows } = dueMembershipData();
-  //old tables from which I based myself
-  // const { columns, rows } = authorsTableData();
-  // const { columns: pColumns, rows: pRows } = projectsTableData();
+  //For the time of class 
+  const handleClickTime = (event) => {
+    setOpenTime(true);
+    setTime(event.currentTarget);
+  };
+  const handleCloseTime = (type) => () => {
+    if (type) {
+      setSelectedTime(type);
+    }
+    setOpenTime(false);
+    setTime(null);
+  };
 
   return (
-    <MenuLayout>
-      <MenuNavbar />
-      <MDBox>
-        <MDButton onClick={handleClickClass} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
-          {selectedClass}
-        </MDButton>
-        <Menu
-          id='resources-menu'
-          anchorEl={classType}
-          open={open}
-          onClose={handleCloseClass('')}
-        >
+  <MenuLayout>
+    <MenuNavbar />
+    <MDBox>
+      <MDButton onClick={handleClickClass} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
+        {selectedClass}
+      </MDButton>
+      <Menu
+        anchorEl={classType}
+        open={openClass}
+        onClose={handleCloseClass('')}
+      >
         <MenuItem onClick={handleCloseClass('Advanced')}>Advanced</MenuItem>
         <MenuItem onClick={handleCloseClass('Kids')}>Kids</MenuItem>
         <MenuItem onClick={handleCloseClass('Beginners')}>Beginners</MenuItem>
+      </Menu>
+      <MDButton onClick={handleClickTime} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
+        {selectedTime}
+      </MDButton>
+      <Menu
+        anchorEl={time}
+        open={openTime}
+        onClose={handleCloseTime('')}
+      >
+        <MenuItem onClick={handleCloseTime('6am')}>6AM</MenuItem>
+        <MenuItem onClick={handleCloseTime('6pm')}>6PM</MenuItem>
+        <MenuItem onClick={handleCloseTime('7pm')}>7PM</MenuItem>
       </Menu>
     </MDBox>
       <MDBox pt={6} pb={3}>
@@ -112,7 +145,10 @@ function Tables() {
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns, rows }}
+                  table={{
+                    columns: columns,
+                    rows: filteredRows ? filteredRows : rows,
+                  }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}

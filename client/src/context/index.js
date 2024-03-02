@@ -18,6 +18,14 @@ Coded by www.creative-tim.com
   you can customize the states for the different components here.
 */
 
+/**
+ Vic - here 
+Sebastian Arteaga
+I Modified this global context file to be able to use the search bar, 
+handle the class type and time 
+
+*/
+
 import { createContext, useContext, useReducer, useMemo } from "react";
 
 // prop-types is a library for typechecking of props
@@ -62,6 +70,9 @@ function reducer(state, action) {
     case "DARKMODE": {
       return { ...state, darkMode: action.value };
     }
+    case "SET_SEARCH_TERM": {
+      return { ...state, searchTerm: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -81,6 +92,11 @@ function MaterialUIControllerProvider({ children }) {
     direction: "ltr",
     layout: "menu",
     darkMode: false,
+    /**
+     Vic - here 
+     //My additions 
+    */
+    searchTerm: "",
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -119,6 +135,11 @@ const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGUR
 const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
+/**
+ Vic - here 
+ My additons
+*/
+const setSearchTerm = (dispatch, value) => dispatch({ type: "SET_SEARCH_TERM", value });
 
 export {
   MaterialUIControllerProvider,
@@ -133,4 +154,9 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  /**
+ Vic - here 
+  My additons
+  */
+  setSearchTerm,
 };
