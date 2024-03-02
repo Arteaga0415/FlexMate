@@ -25,7 +25,8 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
+// import Projects from "layouts/dashboard/components/Projects";
+import AddStudent from "./components/addStudent";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 import DataTable from "examples/Tables/DataTable";
@@ -102,7 +103,7 @@ function Menu() {
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
-                title="Weekly Sessions"
+                title="Weekly Classes"
                 description="Sessions attended per day"
                 date="Last 7 days"
                 chart={weekChart} 
@@ -111,28 +112,24 @@ function Menu() {
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
+              <ReportsBarChart
+                color="info"
+                title="Weekly Begginers Classes"
+                description="Sessions attended per day"
+                date="Last 7 days"
+                chart={weekChart} 
+              />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
+              <ReportsBarChart
+                color="info"
+                title="Weekly Kids Classes"
+                description="Sessions attended per day"
+                date="Last 7 days"
+                chart={weekChart} 
+              />
               </MDBox>
             </Grid>
           </Grid>
@@ -140,7 +137,7 @@ function Menu() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              <AddStudent />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
