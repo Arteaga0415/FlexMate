@@ -32,7 +32,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 import MenuLayout from "../menu/layout";
-import MenuNavbar from "../navbars/default";
+import MenuNavbar from "../navbars/assistance";
 // Material Dashboard 2 React example components
 // import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 // import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -41,7 +41,7 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 // import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+// import projectsTableData from "layouts/tables/data/projectsTableData";
 import usersTableData from "./data/usersTableData";
 import dueMembershipData from "./data/dueMembershipData";
 
@@ -49,21 +49,22 @@ import MDButton from "components/MDButton";
 import { useState } from "react"; 
 import {  Menu, MenuItem } from '@mui/material';
 import { useMaterialUIController } from "context";
+import { useLocation } from 'react-router-dom';
 
 function Tables() {
-  //Kids class etc. 
+  const location = useLocation();
   const [classType, setClassType] = useState(null);
   const [selectedClass, setSelectedClass] = useState('Advanced');
   const [openClass, setOpenClass] = useState(false);
   const [selectedTime, setSelectedTime] = useState('6am');
-  const [time, setTime] = useState('Time');
+  const [time, setTime] = useState(null);
   const [openTime, setOpenTime] = useState(false);
   const { columns, rows } = usersTableData();
   const { columns: pColumns, rows: pRows } = dueMembershipData();
   const [{ searchTerm }] = useMaterialUIController();
 
   let filteredRows;
-  if (searchTerm.length > 0) {
+  if (searchTerm.length > 0 && location.pathname.endsWith("/assistance")) {
     filteredRows = rows.filter(row => {
       // return console.log(row.name.props.name);
       return row.name.props.name.toLowerCase().includes(searchTerm.toLowerCase());

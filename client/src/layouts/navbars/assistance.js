@@ -144,9 +144,11 @@ function MenuNavbar({ absolute, light, isMini }) {
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+    setSearchTerm(dispatch, event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    setSearchTerm(dispatch, inputValue);
   };
 
   return (
