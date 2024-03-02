@@ -72,20 +72,3 @@ const AssistanceWeekly = mongoose.model('AssistanceWeekly', assistanceWeeklySche
 const AssistanceHistory = mongoose.model('AssistanceHistory', assistanceHistorySchema);
 
 module.exports = { User, AssistanceWeekly, AssistanceHistory };
-// const sessionSchema = new Schema({ sessionType: String }, { _id: false }); 
-
-// const dailyAttendanceSchema = new Schema({
-//   userId: { type: Schema.Types.ObjectId, ref: 'User' },
-//   sessions: [sessionSchema]
-// }, { _id: false }); 
-
-// const assistanceWeeklySchema = new Schema({
-//   weekStartDate: { type: Date, required: true },
-//   monday: [dailyAttendanceSchema],
-//   tuesday: [dailyAttendanceSchema],
-//   wednesday: [dailyAttendanceSchema],
-//   thursday: [dailyAttendanceSchema],
-//   friday: [dailyAttendanceSchema],
-//   saturday: [dailyAttendanceSchema],
-//   sunday: [dailyAttendanceSchema],
-// }, { timestamps: true }); 

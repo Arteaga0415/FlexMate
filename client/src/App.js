@@ -29,7 +29,7 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 React example components
 import Sidenav from "./layouts/Sidenav";
 // import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
+import Configurator from "layouts/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";

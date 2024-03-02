@@ -1,6 +1,7 @@
-const { User, AssistanceHistory, AssistanceWeekly } = require('../models'); // Adjust the path as per your project structure
+const { User, AssistanceHistory, AssistanceWeekly } = require('../models'); 
 const mongoose = require('mongoose');
-
+// import { User, AssistanceHistory, AssistanceWeekly } from '../models';
+// import mongoose from 'mongoose';
 const controllers = {
   // Function to get all historical
   getAll: async (req, res) => {

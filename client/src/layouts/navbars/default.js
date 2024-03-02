@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 /**
  Vic - here 
  Sebastian Arteaga
- I grabed the dashboard navbar and deleted the upgrade to pro
+ I grabed the dashboard navbar and deleted the upgrade to pro, deleted functionality for notifications
  */
 
 import { useState, useEffect } from "react";
@@ -148,7 +148,7 @@ function MenuNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
+              <Link to="/">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
                   <Icon sx={iconsStyle}>account_circle</Icon>
                 </IconButton>
@@ -185,7 +185,7 @@ function MenuNavbar({ absolute, light, isMini }) {
               >
                 <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
-              {renderMenu()}
+              {/* {renderMenu()} */}
             </MDBox>
           </MDBox>
         )}

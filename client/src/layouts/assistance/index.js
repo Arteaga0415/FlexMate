@@ -15,7 +15,14 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+/**
+ Vic - here 
+Sebastian Arteaga
+I Used the tables template but made modifications to how everything is displayed 
+added a class menu
+add button is working 
+created the tables data in data/... and the strcuture here.
+*/
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
