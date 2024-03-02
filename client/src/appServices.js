@@ -43,6 +43,19 @@ export const userServices = {
   },
   //post a new member
   //delete a member
+  fetchWeeklyAssistance: async () => {
+    try {
+      const response = await fetch("http://localhost:3333/weekly");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const weeklyAssistance = await response.json();
+      return weeklyAssistance;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch weekly assistance: ${error.message}`);
+    }
+  },
   postWeeklyAssistance: async (data) => {
     try {
       const response = await fetch("http://localhost:3333/updateweekly", {

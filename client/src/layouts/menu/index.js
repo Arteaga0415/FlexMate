@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
 import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
@@ -29,9 +32,32 @@ import DataTable from "examples/Tables/DataTable";
 import { useState, useEffect } from "react";
 import { userServices } from "appServices";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
+import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
+import { Leaderboard } from "@mui/icons-material";
+import { transformWeeklyResponse } from "./data/weeklyData";
 
 function Menu() {
-  const [weekChart, setWeekChart] = useState([]);
+  const [weekChart, setWeekChart] = useState({
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0] }], 
+  });
+
+  useEffect(() => {
+    const fetchAndTransformData = async () => {
+      try {
+        const weeklyAssistance = await userServices.fetchWeeklyAssistance(); 
+        const transformedData = transformWeeklyResponse(weeklyAssistance);
+        // console.log('Weekly data before transformed: ', weeklyAssistance);
+        // console.log('Weekly data transformed: ', transformedData);
+        setWeekChart(transformedData);
+      } catch (error) {
+        console.error("Failed to fetch and transform weekly assistance data:", error);
+      }
+    };
+
+    fetchAndTransformData();
+  }, []);
+
 
   const { sales, tasks } = reportsLineChartData;
   return (
@@ -41,45 +67,31 @@ function Menu() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
+              <DefaultInfoCard
                 color="dark"
                 icon=<SportsKabaddiIcon></SportsKabaddiIcon>
                 title="Students"
-                count={30}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
+                value={30}
               />
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
+              <DefaultInfoCard
+                color="info"
                 icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
+                title="Students"
+                value={30}
               />
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
+              <DefaultInfoCard
+                color="dark"
                 icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
+                title="Students"
+                value={30}
               />
             </MDBox>
           </Grid>
@@ -88,13 +100,13 @@ function Menu() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
+              <ReportsBarChart
+                color="info"
+                title="Weekly Sessions"
+                description="Sessions attended per day"
+                date="Last 7 days"
+                chart={weekChart} 
+              />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
