@@ -17,7 +17,7 @@ import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-// Data
+// Data from creative tim
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
@@ -26,22 +26,26 @@ import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 import DataTable from "examples/Tables/DataTable";
+import { useState, useEffect } from "react";
 import { userServices } from "appServices";
+import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 
 function Menu() {
+  const [weekChart, setWeekChart] = useState([]);
+
   const { sales, tasks } = reportsLineChartData;
   return (
     <MenuLayout>
       <MenuNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
+                icon=<SportsKabaddiIcon></SportsKabaddiIcon>
+                title="Students"
+                count={30}
                 percentage={{
                   color: "success",
                   amount: "+55%",
@@ -50,7 +54,7 @@ function Menu() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
@@ -64,7 +68,7 @@ function Menu() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
@@ -75,21 +79,6 @@ function Menu() {
                   color: "success",
                   amount: "+1%",
                   label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "+4%",
-                  label: "Just updated",
                 }}
               />
             </MDBox>

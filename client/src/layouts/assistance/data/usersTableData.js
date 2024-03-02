@@ -60,13 +60,13 @@ export default function usersTableData() {
       });
   };
 
-  const UserComponent = ({ name, email }) => (
+  const UserComponent = ({ name, belt }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDBox ml={2} lineHeight={1}>
         <MDTypography display="block" variant="button" fontWeight="medium">
           {name}
         </MDTypography>
-        <MDTypography variant="caption">{email}</MDTypography>
+        <MDTypography variant="caption">{belt}</MDTypography>
       </MDBox>
     </MDBox>
   );
@@ -80,19 +80,37 @@ export default function usersTableData() {
     </MDBox>
   );
 
+  const EmailComponent = ({ email }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {email}
+      </MDTypography>
+    </MDBox>
+  );
+
+  const TypeComponent = ({ type }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {type}
+      </MDTypography>
+    </MDBox>
+  );
+
   const columns = [
     { Header: "Name", accessor: "name", align: "left", width: "35%" },
     { Header: "Email", accessor: "email", align: "left" },
-    { Header: "Membership", accessor: "membership", align: "left", width: "15%" },
+    { Header: "Membership", accessor: "membership", align: "left", width: "10%" },
+    { Header: "Type", accessor: "type", align: "center", width: "5%" },
     { Header: "Status", accessor: "status", align: "center", width: "5%" },
     { Header: "Action", accessor: "action", align: "center", width: "5%" },
     { Header: "Add", accessor: "add", align: "center", width: "5%" },
   ];
 
   const rows = users.map((user) => ({
-    name: <UserComponent name={user.name} email={user.email} />,
-    email: user.email,
+    name: <UserComponent name={user.name} belt={user.belt} />,
+    email: <EmailComponent email={user.email} />,
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
+    type: <TypeComponent type={user.type} />,
     status: (
       <MDBox ml={-1}>
         <MDBadge
@@ -104,7 +122,8 @@ export default function usersTableData() {
       </MDBox>
     ),
     action: (
-      <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //yet to make a put request to modify the contents. 
+      <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
         Edit
       </MDTypography>
     ),

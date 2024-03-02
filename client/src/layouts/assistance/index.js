@@ -61,15 +61,16 @@ function Tables() {
     setClassType(null);
   };
 
-  // const { columns, rows } = authorsTableData();
   const { columns, rows } = usersTableData();
   const { columns: pColumns, rows: pRows } = dueMembershipData();
+  //old tables from which I based myself
+  // const { columns, rows } = authorsTableData();
   // const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
     <MenuLayout>
       <MenuNavbar />
-      <MDBox sx={{ padding: 1 }}>
+      <MDBox>
         <MDButton onClick={handleClickClass} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
           {selectedClass}
         </MDButton>
