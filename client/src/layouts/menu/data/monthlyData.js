@@ -7,19 +7,24 @@ Sebastian Arteaga
 I created this file to transform the weekly assistance response to on object of structure chartData
 */
 
-export const transformWeeklyResponse = (weeklyAssistanceData) => {
+export const transformHistoricalResponse = (monthlyAssistanceData) => {
 
   let dayCounts = {
-    monday: 0,
-    tuesday: 0,
-    wednesday: 0,
-    thursday: 0,
-    friday: 0,
-    saturday: 0,
-    sunday: 0,
+    January: 0,
+    February: 0,
+    March: 0,
+    April: 0,
+    May: 0,
+    June: 0,
+    July: 0,
+    August: 0,
+    September: 0,
+    October: 0,
+    November: 0,
+    December: 0,
   };
 
-  weeklyAssistanceData.forEach(week => {
+  monthlyAssistanceData.forEach(user => {
     Object.keys(dayCounts).forEach(day => {
       if (week[day]) {
         // Sum the number of sessions for the day across all users

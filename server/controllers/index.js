@@ -126,6 +126,20 @@ const controllers = {
       res.status(500).send('Error deleting weekly records: ', error.message);
     }
   },
+  deleteOneWeekly: async (req, res) => {
+    const { id } = req.params;
+    // console.log('id: ', id);
+    try {
+      const deletedWeekly = await AssistanceWeekly.findOneAndDelete({ _id: id });
+      if (!deletedWeekly) {
+        return res.status(404).send('No Week found with that ID');
+      }
+      console.log("Deleted Weekly: ", deletedWeekly);
+      res.status(200).send('Week deleted successfully');
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
   //Function to get all users 
   getAllUsers: async (req, res) => {
@@ -152,10 +166,11 @@ const controllers = {
     const { id } = req.params;
     // console.log('id: ', id);
     try {
-      const deleteduser= await User.findOneAndDelete({ _id: id });
+      const deleteduser = await User.deleteOne({ _id: id });
       if (!deleteduser) {
         return res.status(404).send('No User found with that ID');
       }
+      console.log('Deleted user: '. deletedUser);
       res.status(200).send('User deleted successfully');
     } catch (error) {
       res.status(500).send(error.message);

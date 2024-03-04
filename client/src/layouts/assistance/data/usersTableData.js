@@ -15,6 +15,7 @@ import MDBadge from "components/MDBadge";
 import { userServices } from "../../../appServices";
 import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export default function usersTableData() {
   const [users, setUsers] = useState([]);
@@ -61,6 +62,18 @@ export default function usersTableData() {
         console.error("Failed to post weekly assistance", error);
       });
   };
+  const handleDeleteUser= (userId) => {
+    userServices.deleteUser(userId)
+    .then(() => {
+      // Filter out the user that was deleted
+      const updatedUsers = users.filter(user => user._id !== userId);
+      setUsers(updatedUsers); 
+      alert("User deleted successfully");
+    })
+    .catch((error) => {
+      console.error("Failed to delete user", error);
+    });
+  }
 
   const UserComponent = ({ name, belt }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -99,9 +112,10 @@ export default function usersTableData() {
   );
 
   const columns = [
-    { Header: "Name", accessor: "name", align: "left", width: "30%" },
+    { Header: "Name", accessor: "name", align: "left", },
     { Header: "Add", accessor: "add", align: "center", width: "5%" },
-    { Header: "Email", accessor: "email", align: "left" },
+    // { Header: "Delete", accessor: "delete", align: "center", width: "5%" },
+    { Header: "Email", accessor: "email", align: "center", width: "25%" },
     { Header: "Membership", accessor: "membership", align: "left", width: "10%" },
     { Header: "Type", accessor: "type", align: "center", width: "5%" },
     { Header: "Status", accessor: "status", align: "center", width: "5%" },
@@ -128,6 +142,15 @@ export default function usersTableData() {
       <AddCircleOutlineIcon />
       </IconButton>
       ),
+    // delete: (
+    //   <IconButton
+    //     onClick={() =>
+    //       handleDeleteUser(user._id)
+    //     }
+    //   >
+    //   <HighlightOffIcon />
+    //   </IconButton>
+    //   ),
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
     type: <TypeComponent type={user.type} />,
     status: (

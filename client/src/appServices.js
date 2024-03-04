@@ -61,6 +61,21 @@ export const userServices = {
     }
   },
   //delete a member
+  deleteUser: async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3333/user/${id}`, {
+        method: "DELETE",
+      });
+      // console.log("response ok: ", response.ok);
+      // if (!response.ok) {
+      //   throw new Error("Failed to delete user assistance");
+      // }
+      // const result = await response.json();
+      // return result;
+    } catch (error) {
+      console.error("There was a problem with the delete operation:", error);
+    }
+  },
   fetchWeeklyAssistance: async () => {
     try {
       const response = await fetch("http://localhost:3333/weekly");
@@ -72,6 +87,20 @@ export const userServices = {
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
       alert(`Failed to fetch weekly assistance: ${error.message}`);
+    }
+  },
+  deleteWeeklyAssistance: async () => {
+    try {
+      const response = await fetch("http://localhost:3333/weekly", {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete weekly assistance");
+      }
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("There was a problem with the delete operation:", error);
     }
   },
   postWeeklyAssistance: async (data) => {

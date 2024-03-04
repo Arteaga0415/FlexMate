@@ -9,7 +9,7 @@ router.get('/weekly', controllers.getWeekly);
 router.post('/weekly', controllers.postOneWeekly);
 router.post('/updateWeekly', controllers.updateWeeklyAssistance);
 router.delete('/resetWeekly', controllers.deleteAllWeekly);
-// router.delete('/weekly/:id', controllers.deleteOneWeekly);
+router.delete('/weekly/:id', controllers.deleteOneWeekly);
 //User routers 
 router.get('/user', controllers.getAllUsers);
 router.post('/user', controllers.postUser);
