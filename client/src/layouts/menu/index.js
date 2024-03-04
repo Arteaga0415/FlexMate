@@ -35,6 +35,7 @@ import { userServices } from "appServices";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 import { Leaderboard } from "@mui/icons-material";
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { transformWeeklyResponse } from "./data/weeklyData";
 
 function Menu() {
@@ -43,6 +44,7 @@ function Menu() {
     datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0] }], 
   });
   const [userAmount, setUserAmount]= useState(null);
+  const [usersDue, setUsersDue]= useState(null);
 
   useEffect(() => {
     const fetchAndTransformData = async () => {
@@ -56,6 +58,18 @@ function Menu() {
         // console.log('Users length: ', users.length);
         setWeekChart(transformedData);
         setUserAmount(users.length);
+        let filteredUsers;
+        users.forEach((user) => {
+          // console.log(user);
+          if (user.status === false) {
+            filteredUsers = users.filter(user => {
+              //console.log(user.status === false);
+              return user.status === false;
+            });
+          }
+        })
+        console.log('users Due: ', filteredUsers);
+        setUsersDue(filteredUsers.length);
       } catch (error) {
         console.error("Failed to fetch and transform weekly assistance data:", error);
       }
@@ -83,9 +97,9 @@ function Menu() {
             <MDBox mb={1.5}>
               <DefaultInfoCard
                 color="info"
-                icon="leaderboard"
-                title="Students"
-                value={userAmount}
+                icon=<ProductionQuantityLimitsIcon></ProductionQuantityLimitsIcon>
+                title="Students Due Membership"
+                value={usersDue}
               />
             </MDBox>
           </Grid>

@@ -81,7 +81,7 @@ function DataTable({
   } = tableInstance;
 
   // Set the default value for the entries per page when component mounts
-  useEffect(() => setPageSize(defaultValue || 10), [defaultValue]);
+  useEffect(() => setPageSize(defaultValue || 10), [setPageSize, defaultValue]);
 
   // Set the entries per page value based on the select value
   const setEntriesPerPage = (value) => setPageSize(value);
@@ -243,6 +243,7 @@ function DataTable({
           >
             {canPreviousPage && (
               <MDPagination item onClick={() => previousPage()}>
+                {console.log("Here")}
                 <Icon sx={{ fontWeight: "bold" }}>chevron_left</Icon>
               </MDPagination>
             )}
