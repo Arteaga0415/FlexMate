@@ -42,6 +42,24 @@ export const userServices = {
     }
   },
   //post a new member
+  postUser: async (userData) => {
+    try {
+      const response = await fetch("http://localhost:3333/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post new user");
+      }
+      const newUser = await response.json();
+      return newUser;
+    } catch (error) {
+      console.error("There was a problem with the post operation:", error);
+    }
+  },
   //delete a member
   fetchWeeklyAssistance: async () => {
     try {
@@ -74,5 +92,18 @@ export const userServices = {
       console.error("There was a problem with the post operation:", error);
     }
   },
-  fetchHistorical: async () => {},
+  ////////////////////////////////////
+  fetchHistorical: async () => {
+    try {
+      const response = await fetch("http://localhost:3333/historical");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const historicalAssistance = await response.json();
+      return historicalAssistance;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch historical assistance: ${error.message}`);
+    }
+  },
 };

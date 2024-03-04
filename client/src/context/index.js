@@ -23,7 +23,6 @@ Coded by www.creative-tim.com
 Sebastian Arteaga
 I Modified this global context file to be able to use the search bar, 
 handle the class type and time 
-
 */
 
 import { createContext, useContext, useReducer, useMemo } from "react";
@@ -76,6 +75,9 @@ function reducer(state, action) {
     */
     case "SET_SEARCH_TERM": {
       return { ...state, searchTerm: action.value };
+    }
+    case "SET_STUDENTS": {
+      return { ...state, students: action.value };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -144,6 +146,7 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
  My additons
 */
 const setSearchTerm = (dispatch, value) => dispatch({ type: "SET_SEARCH_TERM", value });
+const studentsTerm = (dispatch, value) => dispatch({ type: "SET_STUDENTS", value });
 
 export {
   MaterialUIControllerProvider,
@@ -163,4 +166,5 @@ export {
   My additons
   */
   setSearchTerm,
+  studentsTerm,
 };

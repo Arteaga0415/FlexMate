@@ -22,6 +22,8 @@ import MDBadge from "components/MDBadge";
 import { userServices } from "appServices";;
 import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import MDButton from "components/MDButton";
+import { TextField, Menu, MenuItem } from "@mui/material";
 
 export default function usersTableData() {
 
@@ -36,12 +38,20 @@ export default function usersTableData() {
     </MDBox>
   );
 
-  const MembershipComponent = ({ membership, status }) => (
+  const MembershipComponent = ({ membership}) => (
     <MDBox lineHeight={1} textAlign="left">
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+      <MDButton onClick={handleClickClass} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
         {membership}
-      </MDTypography>
-      <MDTypography variant="caption">{status ? "Active" : "Inactive"}</MDTypography>
+      </MDButton>
+      <Menu
+        anchorEl={classType}
+        open={openClass}
+        onClose={handleCloseClass('')}
+      >
+        <MenuItem onClick={handleCloseClass('Advanced')}>Advanced</MenuItem>
+        <MenuItem onClick={handleCloseClass('Kids')}>Kids</MenuItem>
+        <MenuItem onClick={handleCloseClass('Beginners')}>Beginners</MenuItem>
+      </Menu>
     </MDBox>
   );
 
@@ -74,18 +84,31 @@ export default function usersTableData() {
     { Header: "Classes", accessor: "classesinBelt", align: "center", width: "5%" },
   ];
 
+  // const rows = [
+  //  { name: "Pedro",
+  //   email: "pedroDeLaNoche@example.com",
+  //   membership: "Monthly",
+  //   type: "Begginer",
+  //   status: true,
+  //   belt: "white",
+  //   date: new Date().toDateString(),
+  //   gender: "Male",
+  //   Age: 23,
+  //   classesinBelt: 0,
+  //   }
+  // ];
   const rows = [
-   { name: "Pedro",
-    email: "pedroDeLaNoche@example.com",
-    membership: "Monthly",
-    type: "Begginer",
-    status: true,
-    belt: "white",
-    date: new Date().toDateString(),
-    gender: "Male",
-    Age: 23,
-    classesinBelt: 0,
-  }
+   { name: <MembershipComponent membership={"Choose"} />,
+    email: <TextField label='name' size='small' color='secondary' />,
+    membership: <TextField label='name' size='small' color='secondary' />,
+    type: <TextField label='name' size='small' color='secondary' />,
+    status: <TextField label='name' size='small' color='secondary' />,
+    belt: <TextField label='name' size='small' color='secondary' />,
+    date: <TextField label='name' size='small' color='secondary' />,
+    gender: <TextField label='name' size='small' color='secondary' />,
+    age: <TextField label='name' size='small' color='secondary' />,
+    classesinBelt: <TextField label='name' size='small' color='secondary' />,
+    }
   ];
   
 

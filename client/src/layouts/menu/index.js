@@ -42,15 +42,20 @@ function Menu() {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0] }], 
   });
+  const [userAmount, setUserAmount]= useState(null);
 
   useEffect(() => {
     const fetchAndTransformData = async () => {
       try {
-        const weeklyAssistance = await userServices.fetchWeeklyAssistance(); 
+        const weeklyAssistance = await userServices.fetchWeeklyAssistance();
+        const historicalAssistance = await userServices.fetchHistorical();
+        const users = await userServices.fetchUsers();
         const transformedData = transformWeeklyResponse(weeklyAssistance);
         // console.log('Weekly data before transformed: ', weeklyAssistance);
         // console.log('Weekly data transformed: ', transformedData);
+        // console.log('Users length: ', users.length);
         setWeekChart(transformedData);
+        setUserAmount(users.length);
       } catch (error) {
         console.error("Failed to fetch and transform weekly assistance data:", error);
       }
@@ -70,7 +75,7 @@ function Menu() {
                 color="dark"
                 icon=<SportsKabaddiIcon></SportsKabaddiIcon>
                 title="Students"
-                value={30}
+                value={userAmount}
               />
             </MDBox>
           </Grid>
@@ -80,7 +85,7 @@ function Menu() {
                 color="info"
                 icon="leaderboard"
                 title="Students"
-                value={30}
+                value={userAmount}
               />
             </MDBox>
           </Grid>
@@ -90,7 +95,7 @@ function Menu() {
                 color="dark"
                 icon="store"
                 title="Students"
-                value={30}
+                value={userAmount}
               />
             </MDBox>
           </Grid>
@@ -101,7 +106,7 @@ function Menu() {
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
-                title="Weekly Classes"
+                title="Classes"
                 description="Sessions attended per day"
                 date="Last 7 days"
                 chart={weekChart} 
@@ -112,7 +117,7 @@ function Menu() {
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
-                title="Weekly Begginers Classes"
+                title="Begginers Classes"
                 description="Sessions attended per day"
                 date="Last 7 days"
                 chart={weekChart} 
@@ -123,7 +128,7 @@ function Menu() {
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
-                title="Weekly Kids Classes"
+                title="Kids Classes"
                 description="Sessions attended per day"
                 date="Last 7 days"
                 chart={weekChart} 
@@ -132,12 +137,12 @@ function Menu() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
+        <MDBox sx={{ overflowY: 'auto' }}>
+          <Grid container spacing={3} >
+            <Grid item xs={12} md={6} lg={6}>
               <AddStudent />
             </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={6} lg={6}>
               <OrdersOverview />
             </Grid>
           </Grid>
