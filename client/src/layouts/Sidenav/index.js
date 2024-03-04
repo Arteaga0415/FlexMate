@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 /**
  Vic - here 
  Sebastian Arteaga
- I grabed the Side Navbar and deleted the upgrade to pro button)
+ I grabed the Side Navbar and deleted the upgrade to pro button nothing more to review
  */
 
 import { useEffect } from "react";

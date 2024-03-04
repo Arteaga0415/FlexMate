@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 /**
  Vic - here 
  Sebastian Arteaga
- I grabed the dashboard Layout and did some modifications to make the menu Layout
+ I grabed the dashboard Layout and named it as the menu nothing more
  */
 
 import { useEffect } from "react";

@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
+/**
+ Vic - here 
+Sebastian Arteaga
+I created this file to transform the weekly assistance response to on object of structure chartData
+*/
 
 export const transformWeeklyResponse = (weeklyAssistanceData) => {
-  // Initialize counts for each day of the week
+
   let dayCounts = {
     monday: 0,
     tuesday: 0,
@@ -14,7 +19,6 @@ export const transformWeeklyResponse = (weeklyAssistanceData) => {
     sunday: 0,
   };
 
-  // Iterate over the data to count sessions for each day
   weeklyAssistanceData.forEach(week => {
     Object.keys(dayCounts).forEach(day => {
       if (week[day]) {

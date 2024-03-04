@@ -10,7 +10,7 @@ import MDBox from "components/MDBox";
 /**
  Vic - here 
 Sebastian Arteaga
-I grabed created the two imported layouts below
+I grabed this from the dashboard but basically modified it all.
 */
 import MenuLayout from "./layout";
 import MenuNavbar from "../navbars/default.js";
@@ -59,8 +59,6 @@ function Menu() {
     fetchAndTransformData();
   }, []);
 
-
-  const { sales, tasks } = reportsLineChartData;
   return (
     <MenuLayout>
       <MenuNavbar />

@@ -70,6 +70,10 @@ function reducer(state, action) {
     case "DARKMODE": {
       return { ...state, darkMode: action.value };
     }
+    /**
+     Vic - here 
+    I added the cases below
+    */
     case "SET_SEARCH_TERM": {
       return { ...state, searchTerm: action.value };
     }

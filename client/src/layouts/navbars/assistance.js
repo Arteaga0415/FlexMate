@@ -15,8 +15,7 @@ Coded by www.creative-tim.com
 /**
  Vic - here 
  Sebastian Arteaga
- I grabed the dashboard navbar and deleted the upgrade to pro, deleted functionality for notifications
- Added functionality to the search bar 
+ This is basically the same as the default.js only that if I had to create this one to fix a problem that if a searched on the menu it would filter on the assitance table
  */
 
 import { useState, useEffect } from "react";
@@ -109,25 +108,6 @@ function MenuNavbar({ absolute, light, isMini }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const [inputValue, setInputValue] = useState("");
-
-  // Render the notifications menu
-  // const renderMenu = () => (
-  //   <Menu
-  //     anchorEl={openMenu}
-  //     anchorReference={null}
-  //     anchorOrigin={{
-  //       vertical: "bottom",
-  //       horizontal: "left",
-  //     }}
-  //     open={Boolean(openMenu)}
-  //     onClose={handleCloseMenu}
-  //     sx={{ mt: 2 }}
-  //   >
-  //     <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-  //     <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-  //     <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
-  //   </Menu>
-  // );
 
   // Styles for the navbar icons
   const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({

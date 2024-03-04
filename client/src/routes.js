@@ -72,14 +72,14 @@ const routes = [
     component: <Assistance />,
   },
   {
-    type: "title",
-    title: "Experimental",
-    key: "title",
-  },
-  {
     type: "divider",
     key: "divider",
   },
+  // {
+  //   type: "title",
+  //   title: "Experimental",
+  //   key: "title",
+  // },
   // {
   //   type: "collapse",
   //   name: "Dashboard",
