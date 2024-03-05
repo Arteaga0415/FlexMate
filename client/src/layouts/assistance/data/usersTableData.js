@@ -67,7 +67,7 @@ export default function usersTableData() {
     userServices.postHistoricalAssistance(postDataHistorical)
     .then((result) => {
         if (result) {
-          alert("Weekly assistance posted successfully");
+          console.log("Weekly assistance posted successfully");
         }
       })
       .catch((error) => {
@@ -80,7 +80,7 @@ export default function usersTableData() {
       // Filter out the user that was deleted
       const updatedUsers = users.filter(user => user._id !== userId);
       setUsers(updatedUsers); 
-      alert("User deleted successfully");
+      console.log("User deleted successfully");
     })
     .catch((error) => {
       console.error("Failed to delete user", error);

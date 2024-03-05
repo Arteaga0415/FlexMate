@@ -45,6 +45,17 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { useNavigate } from "react-router-dom";
+import MDAlert from "components/MDAlert";
+
+const alertContent = (name) => (
+  <MDTypography variant="body2" color="white">
+    A simple {name} alert with{" "}
+    <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
+      an example link
+    </MDTypography>
+    . Give it a click if you like.
+  </MDTypography>
+);
 
 function Basic() {
   const [email, setEmail] = useState('');
@@ -84,17 +95,17 @@ function Basic() {
           </MDTypography>
           <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
             <Grid item xs={2}>
-              <MDTypography component={Link} to="/menu" variant="body1" color="white">
+              <MDTypography onClick={handleSignIn} variant="body1" color="white">
                 <FacebookIcon color="inherit" />
               </MDTypography>
             </Grid>
             <Grid item xs={2}>
-              <MDTypography component={Link} to="/menu" variant="body1" color="white">
+              <MDTypography onClick={handleSignIn} variant="body1" color="white">
                 <GitHubIcon color="inherit" />
               </MDTypography>
             </Grid>
             <Grid item xs={2}>
-              <MDTypography component={Link} to="/menu" variant="body1" color="white">
+              <MDTypography onClick={handleSignIn} variant="body1" color="white">
                 <GoogleIcon color="inherit" />
               </MDTypography>
             </Grid>
