@@ -44,7 +44,7 @@ export default function usersTableData() {
     // Extract the YYYY-MM-DD
     return new Date(date.setDate(diff)).toISOString().split('T')[0];
   };  
-  const handleAddWeekly = (weekStartDate, userId, name, day, sessions) => {
+  const handleAddWeekly = (weekStartDate, userId, name, belt, day, sessions) => {
     const postDataWeekly = {
       weekStartDate,
       day,
@@ -54,6 +54,7 @@ export default function usersTableData() {
     const postDataHistorical = {
       userId,
       name,
+      belt,
       totalSessionsAttended: sessions.length,
       detailedHistory: sessions,
     };
@@ -139,6 +140,7 @@ export default function usersTableData() {
             getMondayOfCurrentWeek(),
             user._id,
             user.name,
+            user.belt,
             getCurrentDay(),
             [
               { 

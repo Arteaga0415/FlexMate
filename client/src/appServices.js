@@ -65,6 +65,26 @@ export const userServices = {
       console.error("There was a problem with the post operation:", error);
     }
   },
+  updateUser: async (userId, userData) => {
+    try {
+      const response = await fetch(`http://localhost:3333/user/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const updatedUser = await response.json();
+      return updatedUser;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to update user: ${error.message}`);
+    }
+  },
   //delete a member
   deleteUser: async (id) => {
     try {
@@ -147,7 +167,7 @@ export const userServices = {
         throw new Error("Network response was not ok");
       }
       const userHistorical = await response.json();
-      console.log('response historical for one: ', userHistorical);
+      //console.log('response historical for one: ', userHistorical);
       return userHistorical;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

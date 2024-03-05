@@ -64,6 +64,10 @@ const routes = [
     component: <Menu />,
   },
   {
+    type: "divider",
+    key: "divider1",
+  },
+  {
     type: "collapse",
     name: "Assistance",
     key: "assistance",
@@ -73,7 +77,7 @@ const routes = [
   },
   {
     type: "divider",
-    key: "divider",
+    key: "divider2",
   },
   // {
   //   type: "title",
@@ -120,22 +124,26 @@ const routes = [
   //   route: "/profile",
   //   component: <Profile />,
   // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign In",
-  //   key: "sign-in",
-  //   icon: <Icon fontSize="small">login</Icon>,
-  //   route: "/authentication/sign-in",
-  //   component: <SignIn />,
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
+  {
+    type: "collapse",
+    name: "Sign In",
+    key: "sign-in",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
+  {
+    type: "divider",
+    key: "divider3",
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUp />,
+  },
 ];
 
 export default routes;

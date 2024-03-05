@@ -13,6 +13,7 @@ router.delete('/weekly/:id', controllers.deleteOneWeekly);
 //User routers 
 router.get('/user', controllers.getAllUsers);
 router.post('/user', controllers.postUser);
+router.patch('/user/:id', controllers.updateUser);
 router.delete('/user/:id', controllers.deleteOneUser);
 //Historical Routers 
 router.get('/historical', controllers.getAll);

@@ -22,7 +22,7 @@ const controllers = {
     }
   },
   postOneHistorical: async (req, res) => {
-    const { userId, name, detailedHistory } = req.body;
+    const { userId, name, belt, detailedHistory } = req.body;
     //console.log('user: ', userId, 'Details: ', detailedHistory);
     try {
       // Check if a document for the given userId already exists
@@ -38,6 +38,7 @@ const controllers = {
         const newHistory = new AssistanceHistory({
           userId,
           name,
+          belt,
           totalSessionsAttended: detailedHistory.length,
           detailedHistory
         });
@@ -193,6 +194,20 @@ const controllers = {
       }
       await newUser.save();
       res.status(201).json(newUser);
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  },
+  updateUser: async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+  
+    try {
+      const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+      if (!updatedUser) {
+        return res.status(404).send('User not found');
+      }
+      res.status(200).json(updatedUser);
     } catch (error) {
       res.status(400).send(error.message);
     }

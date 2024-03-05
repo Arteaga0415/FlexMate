@@ -31,26 +31,82 @@ import { userServices } from "appServices";
 import { useState, useEffect } from "react";
 import MDButton from "components/MDButton";
 import {  Menu, MenuItem } from '@mui/material';
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import { parseISO, format } from 'date-fns';
+import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+import { transformHistoricalResponse } from "layouts/menu/data/monthlyData";
+import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
 
-function OrdersOverview(userList) {
+function OrdersOverview({ userList }) {
   const [studentHistory, setStudentHistory] = useState({});
   const [student, setStudent] = useState(null);
-  const [selectedStudent, setSelectedStudent] = useState("Advanced");
+  const [selectedStudent, setSelectedStudent] = useState("Student");
   const [openStudent, setOpenStudent] = useState(false);
-  const [id, setId] = useState(null);
+  const [displayInfo, setDisplayInfo] = useState(false);
+  const [studentThisWeek, setStudentThisWeek] = useState({});
+  const [weekChart, setWeekChart] = useState({
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0] }], 
+  });
+  useEffect(() => {
+    // console.log('weekChart: ', weekChart);
+    // console.log('userList: ', userList);
+    console.log('Date today Day?: ', format(new Date(), 'i'));
+    // console.log('Date today Day?: ', (new Date()).getDay());
+  }, []);
 
-  // useEffect(() => {
-  // }, []);
+  let chartData = {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: {
+      label: "Sessions",
+      data: [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  };
   const fetchStudent = async (id) => {
     if (id) {
       const fetchedStudent = await userServices.fetchOneHistorical(`${id}`);
       if (fetchedStudent) {
         setStudentHistory(fetchedStudent);
+        setDisplayInfo(true);
         // console.log("User type List: ", typeof userList);
-        // console.log("User List: ", userList);
+        //console.log("User fetched: ", fetchedStudent);
+        const userThisWeek = fetchedStudent.detailedHistory.filter(user => {
+          // console.log("Condition: ", user.date >= getMondayOfCurrentWeek());
+          return user.date >= getMondayOfCurrentWeek();
+        });
+        // console.log('users this week: ', userThisWeek);
+        setStudentThisWeek(userThisWeek);
+        // Set the chart data for the student 
+        //To get the position format(new Date(), 'i')
+        chartData.datasets.data[format(new Date(), 'i') - 1] = userThisWeek.length;
+        setWeekChart(chartData);
+      } else {
+        setDisplayInfo(false)
+        chartData.datasets.data[format(new Date(), 'i') - 1] = 0;
+        setWeekChart(chartData);
       }
     }
   };
+
+  const getMondayOfCurrentWeek = () => {
+
+    const date = new Date();
+    //get the day of the week
+    const day = date.getDay();
+    //get the diference to determine the monday with of the month :date.getDate()
+    // since .getDay() returns 0 for sunday we have to do this
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    // Extract the YYYY-MM-DD
+    return new Date(date.setDate(diff)).toISOString().split('T')[0];
+  };  
 
   const handleClickStudent = (event) => {
     setOpenStudent(true);
@@ -70,8 +126,8 @@ function OrdersOverview(userList) {
 
   return (
     <Card sx={{ height: "100%" }}>
-      <MDBox pt={3} px={3}>
-        <MDBox>
+      <MDBox pt={3} px={3} ml={2} >
+        <MDBox mb={2} >
           <MDButton onClick={handleClickStudent} variant="contained" color="info" size="large" >
             {selectedStudent}
           </MDButton>
@@ -80,30 +136,15 @@ function OrdersOverview(userList) {
             open={openStudent}
             onClose={handleCloseStudent('')}
           >
-            {/* <MenuItem onClick={handleCloseStudent('Advanced')}>Advanced</MenuItem> */}
-            {/* <MenuItem onClick={handleCloseStudent('Kids')}>Kids</MenuItem>
-            <MenuItem onClick={handleCloseStudent('Beginners')}>Beginners</MenuItem> */}
-             { userList.userList.map((user) => (
+             { userList.map((user) => (
               <MenuItem key={user._id} onClick={handleCloseStudent(user.name, user._id)}>
                 {user.name}
               </MenuItem>
             ))}
           </Menu>
-          {/* <MDButton onClick={handleClickTime} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
-            {selectedTime}
-          </MDButton>
-          <Menu
-            anchorEl={time}
-            open={openTime}
-            onClose={handleCloseTime('')}
-          >
-            <MenuItem onClick={handleCloseTime('6am')}>6AM</MenuItem>
-            <MenuItem onClick={handleCloseTime('6pm')}>6PM</MenuItem>
-            <MenuItem onClick={handleCloseTime('7pm')}>7PM</MenuItem>
-          </Menu> */}
         </MDBox>
         <MDTypography variant="h6" fontWeight="medium">
-          {studentHistory.name ? studentHistory.name : "Select Student"}
+          {displayInfo ? studentHistory.belt : "Select Student"}
         </MDTypography>
         <MDBox mt={0} mb={2}>
           <MDTypography variant="button" color="text" fontWeight="regular">
@@ -112,45 +153,50 @@ function OrdersOverview(userList) {
             </MDTypography>
             &nbsp;
             <MDTypography variant="button" color="text" fontWeight="medium">
-              24%
+              {displayInfo ? studentHistory.detailedHistory.length : "0"}
             </MDTypography>{" "}
-            this month
+            Clases in belt
           </MDTypography>
         </MDBox>
       </MDBox>
-      <MDBox p={2}>
-        <TimelineItem
-          color="success"
-          icon="notifications"
-          title="$2400, Design changes"
-          dateTime="22 DEC 7:20 PM"
-        />
-        <TimelineItem
-          color="error"
-          icon="inventory_2"
-          title="New order #1832412"
-          dateTime="21 DEC 11 PM"
-        />
-        <TimelineItem
-          color="info"
-          icon="shopping_cart"
-          title="Server payments for April"
-          dateTime="21 DEC 9:34 PM"
-        />
-        <TimelineItem
-          color="warning"
-          icon="payment"
-          title="New card added for order #4395133"
-          dateTime="20 DEC 2:20 AM"
-        />
-        <TimelineItem
-          color="primary"
-          icon="vpn_key"
-          title="New card added for order #4395133"
-          dateTime="18 DEC 4:54 AM"
-          lastItem
-        />
+      <MDBox ml={2} sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <MDBox p={2}>
+          <TimelineItem
+            color="info"
+            icon=<SportsKabaddiIcon></SportsKabaddiIcon>
+            title={displayInfo ? `${studentHistory.detailedHistory.length} Classes in Belt`: "0 Classes in Belt"}
+            dateTime={format(new Date(), 'd MMM yyyy')}
+          />
+          <TimelineItem
+            color="error"
+            icon=<SportsMartialArtsIcon></SportsMartialArtsIcon>
+            title={displayInfo ? `${studentThisWeek.length} Classes this week`: "0 Classes this week"}
+            dateTime={format(new Date(), 'd MMM yyyy')}
+          />
+          <TimelineItem
+            color="info"
+            icon="shopping_cart"
+            title={`Payments for ${format(new Date(), 'MMMM')}`}
+            dateTime={format(new Date(), 'd MMM yyyy')}
+          />
+          <TimelineItem
+            color="info"
+            icon="shopping_cart"
+            title={`Payments for ${format(new Date(), 'MMMM')}`}
+            dateTime={format(new Date(), 'd MMM yyyy')}
+          />
+        </MDBox>
+        <MDBox ml={10}>
+          <ReportsBarChart
+            color="info"
+            title={selectedStudent}
+            description={`${selectedStudent} Attendance`}
+            date="This Week"
+            chart={weekChart} 
+          />
+        </MDBox>
       </MDBox>
+
     </Card>
   );
 }

@@ -50,6 +50,7 @@ function Menu() {
   });
   const [userAmount, setUserAmount] = useState(null);
   const [usersDue, setUsersDue] = useState(null);
+  const [usersThisWeek, setUsersThisWeek] = useState(null);
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
@@ -60,33 +61,36 @@ function Menu() {
         const users = await userServices.fetchUsers();
         const transformDataWeekly = transformWeeklyResponse(weeklyAssistance);
         const transformDataHistorical = transformHistoricalResponse(historicalAssistance);
-        // console.log('Weekly data before transformed: ', weeklyAssistance);
-        //console.log('Weekly data transformed: ', transformDataWeekly);
         //console.log('Monthly data transformed: ', transformDataHistorical);
         // console.log('Users length: ', users.length);
         setWeekChart(transformDataWeekly);
         setMonthlyChart(transformDataHistorical);
         setUserAmount(users.length);
-
-        const filteredUsers = users.filter(user => user.status === false);
-        setUsersDue(filteredUsers.length);
-        //console.log('users Due: ', filteredUsers);
-        setUsersDue(filteredUsers.length);
+        setUsersThisWeek(sumWeeklyAssistances(transformDataWeekly));
+        const dueUsers = users.filter(user => user.status === false);
+        setUsersDue(dueUsers.length);
 
         const studentList = users.map(user => ({
           name: user.name,
           _id: user._id
         }));
-        console.log("Student List: ", studentList);
         setUserList(studentList)
-        console.log("Users List: ", userList);
+
       } catch (error) {
-        console.error("Failed to fetch and transform weekly assistance data:", error);
+        console.error("Failed to fetch and transform Atendance data:", error);
       }
     };
-
     fetchAndTransformData();
   }, []);
+
+  const sumWeeklyAssistances = ({datasets}) => {
+    console.log('Reducer: ', datasets);
+    let sum = 0;
+    datasets.data.forEach((el) => {
+      sum = sum + el;
+    })
+    return sum;
+  }
 
   return (
     <MenuLayout>
@@ -118,8 +122,8 @@ function Menu() {
               <DefaultInfoCard
                 color="dark"
                 icon="store"
-                title="Students"
-                value={userAmount}
+                title="Students This Week"
+                value={usersThisWeek}
               />
             </MDBox>
           </Grid>
@@ -156,7 +160,7 @@ function Menu() {
               <AddStudent />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              <OrdersOverview userList={userList} />
+              <OrdersOverview userList={userList} weekChart={weekChart} />
             </Grid>
           </Grid>
         </MDBox>

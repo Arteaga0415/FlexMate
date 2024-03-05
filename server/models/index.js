@@ -61,6 +61,10 @@ const assistanceHistorySchema = new Schema({
     type: String, 
     required: true 
   },
+  belt: { 
+    type: String, 
+    required: true 
+  },
   totalSessionsAttended: {
     type: Number,
     default: 0
