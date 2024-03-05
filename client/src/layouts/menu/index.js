@@ -17,24 +17,24 @@ import MenuNavbar from "../navbars/default.js";
 
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+// import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
+// import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data from creative tim
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+// import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 // import Projects from "layouts/dashboard/components/Projects";
 import AddStudent from "./components/addStudent";
 import OrdersOverview from "./components/OrdersOverview";
 
-import DataTable from "examples/Tables/DataTable";
+// import DataTable from "examples/Tables/DataTable";
 import { useState, useEffect } from "react";
 import { userServices } from "appServices";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
-import { Leaderboard } from "@mui/icons-material";
+// import { Leaderboard } from "@mui/icons-material";
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { transformWeeklyResponse } from "./data/weeklyData";
 import { transformHistoricalResponse } from "./data/monthlyData";
@@ -48,8 +48,9 @@ function Menu() {
     labels: ["Jan", "Feb", "May", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }], 
   });
-  const [userAmount, setUserAmount]= useState(null);
-  const [usersDue, setUsersDue]= useState(null);
+  const [userAmount, setUserAmount] = useState(null);
+  const [usersDue, setUsersDue] = useState(null);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     const fetchAndTransformData = async () => {
@@ -57,27 +58,28 @@ function Menu() {
         const weeklyAssistance = await userServices.fetchWeeklyAssistance();
         const historicalAssistance = await userServices.fetchHistorical();
         const users = await userServices.fetchUsers();
-        const transformedData = transformWeeklyResponse(weeklyAssistance);
+        const transformDataWeekly = transformWeeklyResponse(weeklyAssistance);
         const transformDataHistorical = transformHistoricalResponse(historicalAssistance);
         // console.log('Weekly data before transformed: ', weeklyAssistance);
-        //console.log('Weekly data transformed: ', transformedData);
+        //console.log('Weekly data transformed: ', transformDataWeekly);
         //console.log('Monthly data transformed: ', transformDataHistorical);
         // console.log('Users length: ', users.length);
-        setWeekChart(transformedData);
+        setWeekChart(transformDataWeekly);
         setMonthlyChart(transformDataHistorical);
         setUserAmount(users.length);
-        let filteredUsers;
-        users.forEach((user) => {
-          // console.log(user);
-          if (user.status === false) {
-            filteredUsers = users.filter(user => {
-              //console.log(user.status === false);
-              return user.status === false;
-            });
-          }
-        })
+
+        const filteredUsers = users.filter(user => user.status === false);
+        setUsersDue(filteredUsers.length);
         //console.log('users Due: ', filteredUsers);
         setUsersDue(filteredUsers.length);
+
+        const studentList = users.map(user => ({
+          name: user.name,
+          _id: user._id
+        }));
+        console.log("Student List: ", studentList);
+        setUserList(studentList)
+        console.log("Users List: ", userList);
       } catch (error) {
         console.error("Failed to fetch and transform weekly assistance data:", error);
       }
@@ -154,7 +156,7 @@ function Menu() {
               <AddStudent />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              <OrdersOverview />
+              <OrdersOverview userList={userList} />
             </Grid>
           </Grid>
         </MDBox>

@@ -15,7 +15,7 @@ const controllers = {
   getOneHistorical: async (req, res) => {
     const { id } = req.params;
     try {
-      const userHistory = await AssistanceHistory.findOne({ _id: id });
+      const userHistory = await AssistanceHistory.findOne({ userId: id });
       res.status(200).json(userHistory);
     } catch (error) {
       res.status(500).send(error.message);

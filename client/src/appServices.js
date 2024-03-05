@@ -147,7 +147,7 @@ export const userServices = {
         throw new Error("Network response was not ok");
       }
       const userHistorical = await response.json();
-      console.log('response: ', userHistorical);
+      console.log('response historical for one: ', userHistorical);
       return userHistorical;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

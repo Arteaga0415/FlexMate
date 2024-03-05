@@ -29,27 +29,81 @@ import MDTypography from "components/MDTypography";
 import TimelineItem from "examples/Timeline/TimelineItem";
 import { userServices } from "appServices";
 import { useState, useEffect } from "react";
+import MDButton from "components/MDButton";
+import {  Menu, MenuItem } from '@mui/material';
 
-function OrdersOverview() {
-  const [userHistory, setUserHistory] = useState({});
+function OrdersOverview(userList) {
+  const [studentHistory, setStudentHistory] = useState({});
+  const [student, setStudent] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState("Advanced");
+  const [openStudent, setOpenStudent] = useState(false);
+  const [id, setId] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const fetchedUser = await userServices.fetchOneHistorical('65e666d8db99dc5acc262ae7');
-      if (fetchedUser) {
-        setUserHistory(fetchedUser);
-        console.log(userHistory);
+  // useEffect(() => {
+  // }, []);
+  const fetchStudent = async (id) => {
+    if (id) {
+      const fetchedStudent = await userServices.fetchOneHistorical(`${id}`);
+      if (fetchedStudent) {
+        setStudentHistory(fetchedStudent);
+        // console.log("User type List: ", typeof userList);
+        // console.log("User List: ", userList);
       }
-    };
-    fetchUser();
-  }, []);
+    }
+  };
 
+  const handleClickStudent = (event) => {
+    setOpenStudent(true);
+    setStudent(event.currentTarget)
+  };
+  const handleCloseStudent = (student, id) => () => {
+    if (student) {
+      setSelectedStudent(student);
+    }
+    setOpenStudent(false);
+    setStudent(null);
+    fetchStudent(id);
+    // console.log("Student: ", student);
+    // console.log("ID: ", id);
+    // console.log("Selected Student: ", selectedStudent);
+  };
 
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox pt={3} px={3}>
+        <MDBox>
+          <MDButton onClick={handleClickStudent} variant="contained" color="info" size="large" >
+            {selectedStudent}
+          </MDButton>
+          <Menu
+            anchorEl={student}
+            open={openStudent}
+            onClose={handleCloseStudent('')}
+          >
+            {/* <MenuItem onClick={handleCloseStudent('Advanced')}>Advanced</MenuItem> */}
+            {/* <MenuItem onClick={handleCloseStudent('Kids')}>Kids</MenuItem>
+            <MenuItem onClick={handleCloseStudent('Beginners')}>Beginners</MenuItem> */}
+             { userList.userList.map((user) => (
+              <MenuItem key={user._id} onClick={handleCloseStudent(user.name, user._id)}>
+                {user.name}
+              </MenuItem>
+            ))}
+          </Menu>
+          {/* <MDButton onClick={handleClickTime} variant="contained" color="info" size="large" sx={{ ml: 2 }}>
+            {selectedTime}
+          </MDButton>
+          <Menu
+            anchorEl={time}
+            open={openTime}
+            onClose={handleCloseTime('')}
+          >
+            <MenuItem onClick={handleCloseTime('6am')}>6AM</MenuItem>
+            <MenuItem onClick={handleCloseTime('6pm')}>6PM</MenuItem>
+            <MenuItem onClick={handleCloseTime('7pm')}>7PM</MenuItem>
+          </Menu> */}
+        </MDBox>
         <MDTypography variant="h6" fontWeight="medium">
-          {userHistory.name}
+          {studentHistory.name ? studentHistory.name : "Select Student"}
         </MDTypography>
         <MDBox mt={0} mb={2}>
           <MDTypography variant="button" color="text" fontWeight="regular">

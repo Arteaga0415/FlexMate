@@ -1,3 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
+
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -62,8 +66,12 @@ function MenuLayout({ children }) {
 }
 
 // Typechecking props for the MenuLayout
-MenuLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// MenuLayout.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
+
+// MenuLayout.defaultProps = {
+//   children: <div>Default Content</div>,
+// };
 
 export default MenuLayout;

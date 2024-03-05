@@ -87,7 +87,6 @@ function AddStudent() {
     if (type) {
       setSelectedType(type);
     }
-
     setOpenType(false);
     setType(null);
   };
@@ -159,11 +158,6 @@ function AddStudent() {
           <MDTypography variant="h6" gutterBottom>
             Add New Student 
           </MDTypography>
-          <MDBox display="flex" alignItems="center" lineHeight={0}>
-            <MDTypography variant="button" fontWeight="regular" color="text">
-              &nbsp;<strong>30 done</strong> this month
-            </MDTypography>
-          </MDBox>
         </MDBox>
       </MDBox>
       <MDBox sx={{ marginLeft: '25px', overflowY: 'auto', maxWidth: '280px' }}>
