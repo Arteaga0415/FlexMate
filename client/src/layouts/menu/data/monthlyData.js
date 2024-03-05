@@ -15,10 +15,13 @@ export const transformHistoricalResponse = (historicalAssistanceData) => {
   historicalAssistanceData.forEach(user => {
     user.detailedHistory.forEach(session => {
       const month = format(parseISO(session.date), 'MMM');
-      if (month === format(new Date(), 'MMM')) {
-        monthCounts[month]+=1;
-        //console.log('Here: ', typeof month);
-        //console.log('Here count: ', monthCounts[month]);
+      for (let el in monthCounts) {
+        // console.log("element: ", el);
+        if (month === el) {
+          monthCounts[month]+=1;
+          //console.log('Here: ', typeof month);
+          //console.log('Here count: ', monthCounts[month]);
+        }
       }
     });
   });

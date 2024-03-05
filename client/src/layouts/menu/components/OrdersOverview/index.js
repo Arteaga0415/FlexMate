@@ -36,6 +36,7 @@ import { parseISO, format } from 'date-fns';
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import { transformHistoricalResponse } from "layouts/menu/data/monthlyData";
 import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
+import PaidIcon from '@mui/icons-material/Paid';
 
 function OrdersOverview({ userList }) {
   const [studentHistory, setStudentHistory] = useState({});
@@ -175,14 +176,14 @@ function OrdersOverview({ userList }) {
           />
           <TimelineItem
             color="info"
-            icon="shopping_cart"
-            title={`Payments for ${format(new Date(), 'MMMM')}`}
+            icon="person"
+            title={displayInfo ? `Student Type ${studentHistory.type}`: "Stduent"}
             dateTime={format(new Date(), 'd MMM yyyy')}
           />
           <TimelineItem
             color="info"
-            icon="shopping_cart"
-            title={`Payments for ${format(new Date(), 'MMMM')}`}
+            icon=<PaidIcon></PaidIcon>
+            title={`Payments for ${format(new Date(), 'MMMM')} ${studentHistory.status ? "Not Due" : "Due"}`}
             dateTime={format(new Date(), 'd MMM yyyy')}
           />
         </MDBox>

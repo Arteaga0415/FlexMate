@@ -38,6 +38,7 @@ import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { transformWeeklyResponse } from "./data/weeklyData";
 import { transformHistoricalResponse } from "./data/monthlyData";
+import PaidIcon from '@mui/icons-material/Paid';
 
 function Menu() {
   const [weekChart, setWeekChart] = useState({
@@ -61,7 +62,8 @@ function Menu() {
         const users = await userServices.fetchUsers();
         const transformDataWeekly = transformWeeklyResponse(weeklyAssistance);
         const transformDataHistorical = transformHistoricalResponse(historicalAssistance);
-        //console.log('Monthly data transformed: ', transformDataHistorical);
+        console.log('Hisotrical Assistance: ', historicalAssistance);
+        console.log('Monthly data transformed: ', transformDataHistorical);
         // console.log('Users length: ', users.length);
         setWeekChart(transformDataWeekly);
         setMonthlyChart(transformDataHistorical);

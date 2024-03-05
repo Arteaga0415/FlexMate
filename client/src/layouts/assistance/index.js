@@ -48,7 +48,7 @@ import dueMembershipData from "./data/dueMembershipData";
 import MDButton from "components/MDButton";
 import { useState } from "react"; 
 import {  Menu, MenuItem } from '@mui/material';
-import { useMaterialUIController } from "context";
+import { useMaterialUIController, setClassTerm, setTimeTerm } from "context";
 import { useLocation } from 'react-router-dom';
 
 function Tables() {
@@ -62,6 +62,7 @@ function Tables() {
   const { columns, rows } = usersTableData();
   const { columns: pColumns, rows: pRows } = dueMembershipData();
   const [{ searchTerm }] = useMaterialUIController();
+  const [dispatch] = useMaterialUIController();
 
   let filteredRows;
   if (searchTerm.length > 0 && location.pathname.endsWith("/assistance")) {
@@ -76,6 +77,7 @@ function Tables() {
   const handleClickClass = (event) => {
     setOpenClass(true);
     setClassType(event.currentTarget);
+    // setClassTerm(dispatch, event.currentTarget);
   };
   const handleCloseClass = (type) => () => {
     if (type) {
@@ -88,6 +90,7 @@ function Tables() {
   const handleClickTime = (event) => {
     setOpenTime(true);
     setTime(event.currentTarget);
+    // setTimeTerm(dispatch, event.currentTarget);
   };
   const handleCloseTime = (type) => () => {
     if (type) {

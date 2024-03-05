@@ -76,8 +76,11 @@ function reducer(state, action) {
     case "SET_SEARCH_TERM": {
       return { ...state, searchTerm: action.value };
     }
-    case "SET_STUDENTS": {
-      return { ...state, students: action.value };
+    case "SET_CLASS_TERM": {
+      return { ...state, searchTerm: action.value };
+    }
+    case "SET_TIME_TERM": {
+      return { ...state, searchTerm: action.value };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -103,6 +106,8 @@ function MaterialUIControllerProvider({ children }) {
      //My additions 
     */
     searchTerm: "",
+    classTerm: "",
+    timeTerm: "",
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -146,7 +151,8 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
  My additons
 */
 const setSearchTerm = (dispatch, value) => dispatch({ type: "SET_SEARCH_TERM", value });
-const studentsTerm = (dispatch, value) => dispatch({ type: "SET_STUDENTS", value });
+const setClassTerm = (dispatch, value) => dispatch({ type: "SET_CLASS_TERM", value });
+const setTimeTerm = (dispatch, value) => dispatch({ type: "SET_TIME_TERM", value });
 
 export {
   MaterialUIControllerProvider,
@@ -166,5 +172,6 @@ export {
   My additons
   */
   setSearchTerm,
-  studentsTerm,
+  setClassTerm,
+  setTimeTerm,
 };

@@ -22,7 +22,7 @@ const controllers = {
     }
   },
   postOneHistorical: async (req, res) => {
-    const { userId, name, belt, detailedHistory } = req.body;
+    const { userId, name, belt, type, status, detailedHistory } = req.body;
     //console.log('user: ', userId, 'Details: ', detailedHistory);
     try {
       // Check if a document for the given userId already exists
@@ -39,6 +39,8 @@ const controllers = {
           userId,
           name,
           belt,
+          type,
+          status,
           totalSessionsAttended: detailedHistory.length,
           detailedHistory
         });

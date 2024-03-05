@@ -65,6 +65,14 @@ const assistanceHistorySchema = new Schema({
     type: String, 
     required: true 
   },
+  type: { 
+    type: String, 
+    required: true 
+  },
+  status: { 
+    type: Boolean, 
+    required: true 
+  },
   totalSessionsAttended: {
     type: Number,
     default: 0

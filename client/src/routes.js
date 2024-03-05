@@ -136,14 +136,14 @@ const routes = [
     type: "divider",
     key: "divider3",
   },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <SignUp />,
+  // },
 ];
 
 export default routes;

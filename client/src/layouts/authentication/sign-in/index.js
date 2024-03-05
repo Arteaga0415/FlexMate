@@ -116,7 +116,7 @@ function Basic() {
                   component={Link}
                   to="/menu"
                   variant="button"
-                  color="info"
+                  color="light"
                   fontWeight="medium"
                   textGradient
                 >

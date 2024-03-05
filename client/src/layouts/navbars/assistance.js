@@ -73,9 +73,6 @@ function MenuNavbar({ absolute, light, isMini }) {
    Vic - here 
   My additons
   */
-  const handleSearchChange = (event) => {
-    setSearchTerm(dispatch, event.target.value);
-  };
 
   useEffect(() => {
     // Setting the navbar type

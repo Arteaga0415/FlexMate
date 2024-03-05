@@ -161,11 +161,11 @@ function MenuNavbar({ absolute, light, isMini }) {
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
               <MDBox pr={1}>
                 <MDInput label="Search here" value={inputValue} onChange={handleInputChange} />
               </MDBox>
-            </form>
+            </form> */}
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>

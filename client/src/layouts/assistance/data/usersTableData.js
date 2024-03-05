@@ -16,9 +16,11 @@ import { userServices } from "../../../appServices";
 import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useMaterialUIController } from "context";
 
 export default function usersTableData() {
   const [users, setUsers] = useState([]);
+  const [{ classTerm, timeTerm }] = useMaterialUIController();
   //Fetch request for the users
   useEffect(() => {
     const fetchUsers = async () => {
@@ -44,7 +46,7 @@ export default function usersTableData() {
     // Extract the YYYY-MM-DD
     return new Date(date.setDate(diff)).toISOString().split('T')[0];
   };  
-  const handleAddWeekly = (weekStartDate, userId, name, belt, day, sessions) => {
+  const handleAddWeekly = (weekStartDate, userId, name, belt, type, status, day, sessions) => {
     const postDataWeekly = {
       weekStartDate,
       day,
@@ -55,6 +57,8 @@ export default function usersTableData() {
       userId,
       name,
       belt,
+      type,
+      status,
       totalSessionsAttended: sessions.length,
       detailedHistory: sessions,
     };
@@ -122,8 +126,8 @@ export default function usersTableData() {
   const columns = [
     { Header: "Name", accessor: "name", align: "left", },
     { Header: "Add", accessor: "add", align: "center", width: "5%" },
-    // { Header: "Delete", accessor: "delete", align: "center", width: "5%" },
-    { Header: "Email", accessor: "email", align: "center", width: "25%" },
+    { Header: "Delete", accessor: "delete", align: "center", width: "5%" },
+    { Header: "Email", accessor: "email", align: "center", width: "20%" },
     { Header: "Membership", accessor: "membership", align: "left", width: "10%" },
     { Header: "Type", accessor: "type", align: "center", width: "5%" },
     { Header: "Status", accessor: "status", align: "center", width: "5%" },
@@ -141,16 +145,14 @@ export default function usersTableData() {
             user._id,
             user.name,
             user.belt,
+            user.type,
+            user.status,
             getCurrentDay(),
             [
               { 
                 date: new Date(),
-                sessionType: "advanced Class"
+                sessionType: user.type
                },
-              { 
-                date: new Date(),
-                sessionType: "Sparring Session" 
-              },
             ]
           )
         }
@@ -158,15 +160,15 @@ export default function usersTableData() {
       <AddCircleOutlineIcon />
       </IconButton>
       ),
-    // delete: (
-    //   <IconButton
-    //     onClick={() =>
-    //       handleDeleteUser(user._id)
-    //     }
-    //   >
-    //   <HighlightOffIcon />
-    //   </IconButton>
-    //   ),
+    delete: (
+      <IconButton
+        onClick={() =>
+          handleDeleteUser(user._id)
+        }
+      >
+      <HighlightOffIcon />
+      </IconButton>
+      ),
     membership: <MembershipComponent membership={user.membership} status={user.status} />,
     type: <TypeComponent type={user.type} />,
     status: (
