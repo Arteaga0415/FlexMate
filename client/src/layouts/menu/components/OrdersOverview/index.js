@@ -1,3 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
+
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -23,13 +27,29 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import TimelineItem from "examples/Timeline/TimelineItem";
+import { userServices } from "appServices";
+import { useState, useEffect } from "react";
 
 function OrdersOverview() {
+  const [userHistory, setUserHistory] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await userServices.fetchOneHistorical('65e666d8db99dc5acc262ae7');
+      if (fetchedUser) {
+        setUserHistory(fetchedUser);
+        console.log(userHistory);
+      }
+    };
+    fetchUser();
+  }, []);
+
+
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox pt={3} px={3}>
         <MDTypography variant="h6" fontWeight="medium">
-          Orders overview
+          {userHistory.name}
         </MDTypography>
         <MDBox mt={0} mb={2}>
           <MDTypography variant="button" color="text" fontWeight="regular">

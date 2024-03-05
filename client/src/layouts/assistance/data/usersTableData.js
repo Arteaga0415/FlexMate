@@ -44,15 +44,22 @@ export default function usersTableData() {
     // Extract the YYYY-MM-DD
     return new Date(date.setDate(diff)).toISOString().split('T')[0];
   };  
-  const handleAddWeekly = (weekStartDate, userId, day, sessions) => {
-    const postData = {
+  const handleAddWeekly = (weekStartDate, userId, name, day, sessions) => {
+    const postDataWeekly = {
       weekStartDate,
       day,
       userId,
       sessions,
     };
+    const postDataHistorical = {
+      userId,
+      name,
+      totalSessionsAttended: sessions.length,
+      detailedHistory: sessions,
+    };
     //console.log("Data to post: ", postData);
-    userServices.postWeeklyAssistance(postData)
+    userServices.postWeeklyAssistance(postDataWeekly)
+    userServices.postHistoricalAssistance(postDataHistorical)
     .then((result) => {
         if (result) {
           alert("Weekly assistance posted successfully");
@@ -131,10 +138,17 @@ export default function usersTableData() {
           handleAddWeekly(
             getMondayOfCurrentWeek(),
             user._id,
+            user.name,
             getCurrentDay(),
             [
-              { sessionType: "advanced Class" },
-              { sessionType: "Sparring Session" },
+              { 
+                date: new Date(),
+                sessionType: "advanced Class"
+               },
+              { 
+                date: new Date(),
+                sessionType: "Sparring Session" 
+              },
             ]
           )
         }

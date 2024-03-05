@@ -16,7 +16,9 @@ router.post('/user', controllers.postUser);
 router.delete('/user/:id', controllers.deleteOneUser);
 //Historical Routers 
 router.get('/historical', controllers.getAll);
+router.get('/historical/:id', controllers.getOneHistorical);
 router.post('/historical', controllers.postOneHistorical);
 router.delete('/historical/:id', controllers.deleteOneHistorical);
+router.delete('/historical', controllers.deleteAllHistorical);
 
 module.exports = router;

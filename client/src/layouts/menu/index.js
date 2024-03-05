@@ -27,7 +27,7 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 // import Projects from "layouts/dashboard/components/Projects";
 import AddStudent from "./components/addStudent";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import OrdersOverview from "./components/OrdersOverview";
 
 import DataTable from "examples/Tables/DataTable";
 import { useState, useEffect } from "react";
@@ -37,11 +37,16 @@ import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 import { Leaderboard } from "@mui/icons-material";
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { transformWeeklyResponse } from "./data/weeklyData";
+import { transformHistoricalResponse } from "./data/monthlyData";
 
 function Menu() {
   const [weekChart, setWeekChart] = useState({
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0] }], 
+  });
+  const [monthlyChart, setMonthlyChart] = useState({
+    labels: ["Jan", "Feb", "May", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [{ label: "Sessions", data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }], 
   });
   const [userAmount, setUserAmount]= useState(null);
   const [usersDue, setUsersDue]= useState(null);
@@ -53,10 +58,13 @@ function Menu() {
         const historicalAssistance = await userServices.fetchHistorical();
         const users = await userServices.fetchUsers();
         const transformedData = transformWeeklyResponse(weeklyAssistance);
+        const transformDataHistorical = transformHistoricalResponse(historicalAssistance);
         // console.log('Weekly data before transformed: ', weeklyAssistance);
-        // console.log('Weekly data transformed: ', transformedData);
+        //console.log('Weekly data transformed: ', transformedData);
+        //console.log('Monthly data transformed: ', transformDataHistorical);
         // console.log('Users length: ', users.length);
         setWeekChart(transformedData);
+        setMonthlyChart(transformDataHistorical);
         setUserAmount(users.length);
         let filteredUsers;
         users.forEach((user) => {
@@ -68,7 +76,7 @@ function Menu() {
             });
           }
         })
-        console.log('users Due: ', filteredUsers);
+        //console.log('users Due: ', filteredUsers);
         setUsersDue(filteredUsers.length);
       } catch (error) {
         console.error("Failed to fetch and transform weekly assistance data:", error);
@@ -116,7 +124,7 @@ function Menu() {
         </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4} lg={4}>
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
@@ -127,25 +135,14 @@ function Menu() {
               />
               </MDBox>
             </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={8} lg={8}>
               <MDBox mb={3}>
               <ReportsBarChart
                 color="info"
-                title="Begginers Classes"
-                description="Sessions attended per day"
-                date="Last 7 days"
-                chart={weekChart} 
-              />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-              <ReportsBarChart
-                color="info"
-                title="Kids Classes"
-                description="Sessions attended per day"
-                date="Last 7 days"
-                chart={weekChart} 
+                title="Students"
+                description="Students per month"
+                date="Last year"
+                chart={monthlyChart} 
               />
               </MDBox>
             </Grid>

@@ -57,12 +57,16 @@ const assistanceHistorySchema = new Schema({
     ref: 'User',
     required: true
   },
+  name: { 
+    type: String, 
+    required: true 
+  },
   totalSessionsAttended: {
     type: Number,
     default: 0
   },
   detailedHistory: [{
-    date: Date,
+    date: String,
     sessionType: String
   }]
 });

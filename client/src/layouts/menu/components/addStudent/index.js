@@ -131,7 +131,7 @@ function AddStudent() {
       gender: selectedGender,
       age: age,
       belt: selectedBelt,
-      classesInBelt: 1, // Set this based on your application's logic
+      classesInBelt: 1, 
     };
     console.log("Data to post: ", postData);
     userServices.postUser(postData)
@@ -153,7 +153,7 @@ function AddStudent() {
   };
 
   return (
-    <Card sx={{height: 'auto' }}>
+    <Card sx={{height: '100%' }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         <MDBox>
           <MDTypography variant="h6" gutterBottom>
@@ -231,7 +231,7 @@ function AddStudent() {
           </MDBox>
           <TextField label='Age' value={age} variant='outlined' sx={{ maxWidth: '100px '}} onChange={handleTextChange(setAge)} />
         </Stack>
-        <MDBox mt={2}>
+        <MDBox mt={2} mb={3}>
           <MDButton variant="contained" color="info" size="large" onClick={handleSubmit} >
             Submit
           </MDButton>

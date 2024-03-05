@@ -12,16 +12,42 @@ const controllers = {
       res.status(500).send(error.message);
     }
   },
-  //Function to post one historical
-  postOneHistorical: async (req, res) => {
+  getOneHistorical: async (req, res) => {
+    const { id } = req.params;
     try {
-      const newHistory = new AssistanceHistory(req.body);
-      await newHistory.save();
-      res.status(201).json(newHistory);
+      const userHistory = await AssistanceHistory.findOne({ _id: id });
+      res.status(200).json(userHistory);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+  postOneHistorical: async (req, res) => {
+    const { userId, name, detailedHistory } = req.body;
+    //console.log('user: ', userId, 'Details: ', detailedHistory);
+    try {
+      // Check if a document for the given userId already exists
+      const existingHistory = await AssistanceHistory.findOne({ userId });
+      if (existingHistory) {
+        // If it exists, push new sessions into the detailedHistory array
+        existingHistory.detailedHistory.push(...detailedHistory);
+        existingHistory.totalSessionsAttended += detailedHistory.length;
+        await existingHistory.save();
+        res.status(200).json(existingHistory);
+      } else {
+        // If it doesn't exist, create a new document
+        const newHistory = new AssistanceHistory({
+          userId,
+          name,
+          totalSessionsAttended: detailedHistory.length,
+          detailedHistory
+        });
+        await newHistory.save();
+        res.status(201).json(newHistory);
+      }
     } catch (error) {
       res.status(400).send(error.message);
     }
-  },
+},
   //Function to delete one historical 
   deleteOneHistorical: async (req, res) => {
     const { id } = req.params;
@@ -40,6 +66,15 @@ const controllers = {
       res.status(200).send('Record deleted successfully');
     } catch (error) {
       res.status(500).send(error.message);
+    }
+  },
+  deleteAllHistorical: async (req, res) => {
+    try {
+      // Delete all in Historical Assistance
+      await AssistanceHistory.deleteMany({});
+      res.status(200).send('Historical records successfully deleted');
+    } catch (error) {
+      res.status(500).send('Error deleting Historical records: ', error.message);
     }
   },
   //Function to get all active (where status = true)

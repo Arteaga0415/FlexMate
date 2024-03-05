@@ -4,49 +4,43 @@
 /**
  Vic - here 
 Sebastian Arteaga
-I created this file to transform the weekly assistance response to on object of structure chartData
+I created this file to transform the monthly assistance response to on object of structure chartData
 */
 
-export const transformHistoricalResponse = (monthlyAssistanceData) => {
+import { parseISO, format } from 'date-fns';
 
-  let dayCounts = {
-    January: 0,
-    February: 0,
-    March: 0,
-    April: 0,
-    May: 0,
-    June: 0,
-    July: 0,
-    August: 0,
-    September: 0,
-    October: 0,
-    November: 0,
-    December: 0,
-  };
+export const transformHistoricalResponse = (historicalAssistanceData) => {
+  const monthCounts = {"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0, "Jul": 0, "Aug": 0, "Sep": 0, "Oct": 0, "Nov": 0, "Dec": 0};
 
-  monthlyAssistanceData.forEach(user => {
-    Object.keys(dayCounts).forEach(day => {
-      if (week[day]) {
-        // Sum the number of sessions for the day across all users
-        dayCounts[day] += week[day].reduce((acc, curr) => acc + curr.sessions.length, 0);
+  historicalAssistanceData.forEach(user => {
+    user.detailedHistory.forEach(session => {
+      const month = format(parseISO(session.date), 'MMM');
+      if (month === format(new Date(), 'MMM')) {
+        monthCounts[month]+=1;
+        //console.log('Here: ', typeof month);
+        //console.log('Here count: ', monthCounts[month]);
       }
     });
   });
 
-  // Prepare the data structure for the chart
   const chartData = {
-    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    labels: Object.keys(monthCounts),
     datasets: {
-      label: "Sessions",
+      label: 'Monthly Attendance',
       data: [
-        dayCounts.monday,
-        dayCounts.tuesday,
-        dayCounts.wednesday,
-        dayCounts.thursday,
-        dayCounts.friday,
-        dayCounts.saturday,
-        dayCounts.sunday
-      ]
+        monthCounts["Jan"],
+        monthCounts["Feb"],
+        monthCounts["Mar"],
+        monthCounts["Apr"],
+        monthCounts["May"],
+        monthCounts["Jun"],
+        monthCounts["Jul"],
+        monthCounts["Aug"],
+        monthCounts["Sep"],
+        monthCounts["Oct"],
+        monthCounts["Nov"],
+        monthCounts["Dec"],
+      ],
     }
   };
 

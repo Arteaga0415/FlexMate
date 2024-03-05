@@ -1,3 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
+
+
 export const userServices = {
   //fetch all Active members (users)
   fetchActiveUsers: async () => {
@@ -133,6 +138,38 @@ export const userServices = {
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
       alert(`Failed to fetch historical assistance: ${error.message}`);
+    }
+  },
+  fetchOneHistorical: async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3333/historical/${userId}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const userHistorical = await response.json();
+      console.log('response: ', userHistorical);
+      return userHistorical;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      alert(`Failed to fetch historical assistance: ${error.message}`);
+    }
+  },
+  postHistoricalAssistance: async (data) => {
+    try {
+      const response = await fetch("http://localhost:3333/historical", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post Historical assistance");
+      }
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("There was a problem with the post operation:", error);
     }
   },
 };
