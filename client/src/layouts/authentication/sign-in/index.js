@@ -47,9 +47,19 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { useNavigate } from "react-router-dom";
 
 function Basic() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const handleSignIn = () => {
+    if (email === 'admin@example.com' && password === 'admin') {
+      navigate('/menu');
+    } else {
+      alert('Invalid credentials!');
+    }
+  };
 
   const navigateMenu = () => {
     navigate("/menu");
@@ -91,12 +101,12 @@ function Basic() {
           </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form" onSubmit={(e) => e.preventDefault()}>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Password" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -111,33 +121,11 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                <MDTypography
-                  component={Link}
-                  to="/menu"
-                  variant="button"
-                  color="light"
-                  fontWeight="medium"
-                  textGradient
-                >
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleSignIn}>
+                <MDTypography variant="button" color="light" fontWeight="medium" textGradient>
                   Sign in
                 </MDTypography>
               </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/sign-up"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Sign up
-                </MDTypography>
-              </MDTypography>
             </MDBox>
           </MDBox>
         </MDBox>
