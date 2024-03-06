@@ -9,7 +9,9 @@ Change this below on the package.json I the client:
 
 "scripts": {
     "start": "cross-env GENERATE_SOURCEMAP=false react-scripts start",
-A think it is:
+    }
+
+I think it is:
 "start": "react-scripts start",
 
 
