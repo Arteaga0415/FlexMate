@@ -5,7 +5,7 @@
 
 # Client: npm start (For windows)
 (If you have a mac most likely!!!)
-Change this below on the package.json I the client: 
+Change this below on the package.json in the client: 
 
 "scripts": {
     "start": "cross-env GENERATE_SOURCEMAP=false react-scripts start",
