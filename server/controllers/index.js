@@ -172,7 +172,7 @@ const controllers = {
       if (!deletedWeekly) {
         return res.status(404).send('No Week found with that ID');
       }
-      console.log("Deleted Weekly: ", deletedWeekly);
+      // console.log("Deleted Weekly: ", deletedWeekly);
       res.status(200).send('Week deleted successfully');
     } catch (error) {
       res.status(500).send(error.message);
