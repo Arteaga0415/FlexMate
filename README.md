@@ -6,7 +6,7 @@ npm install
 ```
 # To run the project
 
-# Client
+## Client
 (For windows)
 ```
 npm start
@@ -16,7 +16,7 @@ Change the start script on the package.json to this:
 ```
 "start": "react-scripts start"
 ```
-# Server 
+## Server 
 ```
 nodemon index.js
 ```
