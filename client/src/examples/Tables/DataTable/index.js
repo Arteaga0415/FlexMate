@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -99,14 +102,17 @@ function DataTable({
   ));
 
   // Handler for the input to set the pagination index
-  const handleInputPagination = ({ target: { value } }) =>
+  const handleInputPagination = ({ target: { value } }) => {
     value > pageOptions.length || value < 0 ? gotoPage(0) : gotoPage(Number(value));
-
+  };
   // Customized page options starting from 1
   const customizedPageOptions = pageOptions.map((option) => option + 1);
 
   // Setting value for the pagination input
-  const handleInputPaginationValue = ({ target: value }) => gotoPage(Number(value.value - 1));
+  const handleInputPaginationValue = ({ target: value }) => {
+    gotoPage(Number(value.value - 1));
+    console.log("This is the value: ", value);
+  };
 
   // Search input value state
   const [search, setSearch] = useState(globalFilter);

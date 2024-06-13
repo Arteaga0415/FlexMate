@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"e317e7d27eb341d781ece7dfd9024153","collectionName":"assistancehistories","type":"collection"}

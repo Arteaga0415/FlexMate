@@ -154,7 +154,7 @@ function Tables() {
                     rows: filteredRows ? filteredRows : rows,
                   }}
                   isSorted={false}
-                  entriesPerPage={false}
+                  // entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
                 />
