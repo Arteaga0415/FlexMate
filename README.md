@@ -18,6 +18,6 @@ Change the start script on the package.json to this:
 ```
 ## Server 
 ```
-nodemon index.js
+npm start
 ```
 
