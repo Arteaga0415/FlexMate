@@ -124,7 +124,7 @@ function Menu() {
             <Grid item xs={12} md={8} lg={8}>
               <MDBox mb={3}>
               <ReportsBarChart
-                color="info"
+                color="secondary"
                 title="Students"
                 description="Students per month"
                 date="Last year"

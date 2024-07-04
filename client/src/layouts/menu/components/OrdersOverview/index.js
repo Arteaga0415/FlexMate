@@ -189,7 +189,7 @@ function OrdersOverview({ userList }) {
         </MDBox>
         <MDBox ml={10}>
           <ReportsBarChart
-            color="info"
+            color="success"
             title={selectedStudent}
             description={`${selectedStudent} Attendance`}
             date="This Week"
