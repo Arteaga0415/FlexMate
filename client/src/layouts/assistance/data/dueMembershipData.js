@@ -1,12 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
-/**
- Vic - here 
-Sebastian Arteaga
-I created this data using the authorsTablesData as a guide
-*/
-
 // Import React and useState, useEffect hooks
 import React, { useState, useEffect } from "react";
 import MDBox from "components/MDBox";

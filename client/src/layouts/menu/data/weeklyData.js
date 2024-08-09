@@ -1,11 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
-/**
- Vic - here 
-Sebastian Arteaga
-I created this file to transform the weekly assistance response to on object of structure chartData
-*/
 
 export const transformWeeklyResponse = (weeklyAssistanceData) => {
 
