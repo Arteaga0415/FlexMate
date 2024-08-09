@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
-/**
+
 
 // Import React and useState, useEffect hooks
 import React, { useState, useEffect } from "react";
