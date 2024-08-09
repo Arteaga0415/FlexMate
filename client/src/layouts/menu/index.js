@@ -2,39 +2,17 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
 import Grid from "@mui/material/Grid";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-
-// Material Dashboard 2 React example components
-/**
- Vic - here 
-Sebastian Arteaga
-I grabed this from the dashboard but basically modified it all.
-*/
 import MenuLayout from "./layout";
 import MenuNavbar from "../navbars/default.js";
-
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-// import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-// import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
-// Data from creative tim
-// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-// import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
-
-// Dashboard components
-// import Projects from "layouts/dashboard/components/Projects";
 import AddStudent from "./components/addStudent";
 import OrdersOverview from "./components/OrdersOverview";
-
-// import DataTable from "examples/Tables/DataTable";
 import { useState, useEffect } from "react";
 import { userServices } from "appServices";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
-// import { Leaderboard } from "@mui/icons-material";
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { transformWeeklyResponse } from "./data/weeklyData";
 import { transformHistoricalResponse } from "./data/monthlyData";
@@ -146,7 +124,7 @@ function Menu() {
             <Grid item xs={12} md={8} lg={8}>
               <MDBox mb={3}>
               <ReportsBarChart
-                color="info"
+                color="secondary"
                 title="Students"
                 description="Students per month"
                 date="Last year"

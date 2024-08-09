@@ -1,17 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-alert, indent, prettier/prettier */
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import { useMemo, useEffect, useState } from "react";
 
@@ -99,14 +89,17 @@ function DataTable({
   ));
 
   // Handler for the input to set the pagination index
-  const handleInputPagination = ({ target: { value } }) =>
+  const handleInputPagination = ({ target: { value } }) => {
     value > pageOptions.length || value < 0 ? gotoPage(0) : gotoPage(Number(value));
-
+  };
   // Customized page options starting from 1
   const customizedPageOptions = pageOptions.map((option) => option + 1);
 
   // Setting value for the pagination input
-  const handleInputPaginationValue = ({ target: value }) => gotoPage(Number(value.value - 1));
+  const handleInputPaginationValue = ({ target: value }) => {
+    gotoPage(Number(value.value - 1));
+    console.log("This is the value: ", value);
+  };
 
   // Search input value state
   const [search, setSearch] = useState(globalFilter);

@@ -1,28 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-alert, indent, prettier/prettier */
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-/**
- Vic - here 
-Sebastian Arteaga
-I Used the tables template but made modifications to how everything is displayed 
-added a class menu
-add button is working 
-created the tables data in data/... and the strcuture here.
-*/
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -154,7 +132,7 @@ function Tables() {
                     rows: filteredRows ? filteredRows : rows,
                   }}
                   isSorted={false}
-                  entriesPerPage={false}
+                  // entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
                 />

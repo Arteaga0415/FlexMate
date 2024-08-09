@@ -1,23 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-/**
- Vic - here 
- Sebastian Arteaga
- I grabed the Side Navbar and deleted the upgrade to pro button nothing more to review
- */
-
 import { useEffect } from "react";
 
 // react-router-dom components
@@ -88,10 +68,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  /**
-  Vic - here 
-  No modification but this below is what renders all the objects in the routers
-  */
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
@@ -187,7 +163,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           (darkMode && !transparentSidenav && whiteSidenav)
         }
       />
-      {/** Vic - here No modification but this below is what renders all the objects in the routers */}
       <List>{renderRoutes}</List>
     </SidenavRoot>
   );

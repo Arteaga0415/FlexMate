@@ -1,23 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-/**
- Vic - here 
- Sebastian Arteaga
- This is basically the same as the default.js only that if I had to create this one to fix a problem that if a searched on the menu it would filter on the assitance table
- */
-
 import { useState, useEffect } from "react";
 
 // react-router components
@@ -41,11 +21,6 @@ import MDInput from "components/MDInput";
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
 
-// Custom styles for menuNavbar
-/**
- Vic - here 
- Used the same styles as the dashboard Navbar
- */
 import {
   navbar,
   navbarContainer,
@@ -69,10 +44,6 @@ function MenuNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
-  /**
-   Vic - here 
-  My additons
-  */
 
   useEffect(() => {
     // Setting the navbar type

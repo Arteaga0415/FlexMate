@@ -1,30 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/**
-  This file is used for controlling the global states of the components,
-  you can customize the states for the different components here.
-*/
-
-/**
- Vic - here 
-Sebastian Arteaga
-I Modified this global context file to be able to use the search bar, 
-handle the class type and time 
-*/
-
 import { createContext, useContext, useReducer, useMemo } from "react";
 
 // prop-types is a library for typechecking of props
@@ -69,10 +42,6 @@ function reducer(state, action) {
     case "DARKMODE": {
       return { ...state, darkMode: action.value };
     }
-    /**
-     Vic - here 
-    I added the cases below
-    */
     case "SET_SEARCH_TERM": {
       return { ...state, searchTerm: action.value };
     }
@@ -101,10 +70,6 @@ function MaterialUIControllerProvider({ children }) {
     direction: "ltr",
     layout: "menu",
     darkMode: false,
-    /**
-     Vic - here 
-     //My additions 
-    */
     searchTerm: "",
     classTerm: "",
     timeTerm: "",
@@ -146,10 +111,6 @@ const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGUR
 const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
-/**
- Vic - here 
- My additons
-*/
 const setSearchTerm = (dispatch, value) => dispatch({ type: "SET_SEARCH_TERM", value });
 const setClassTerm = (dispatch, value) => dispatch({ type: "SET_CLASS_TERM", value });
 const setTimeTerm = (dispatch, value) => dispatch({ type: "SET_TIME_TERM", value });
@@ -167,10 +128,6 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
-  /**
- Vic - here 
-  My additons
-  */
   setSearchTerm,
   setClassTerm,
   setTimeTerm,
